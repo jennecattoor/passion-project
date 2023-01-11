@@ -1,5 +1,8 @@
 # Personal Passion Project
 Personal Passion Project where I dive deeper into no-code apps
+## Blog
+You can read more about this project on the blog.
+[Link to blog](https://medium.com/@jennecattoor/making-a-sophisticated-no-code-app-in-2023-2a401010b32f?source=friends_link&sk=c3f473f679a2263e397975ab6b965535)
 ## Planning
 ### Week 1:
 - Monday 9/01: Setting up workflow + defining research question
