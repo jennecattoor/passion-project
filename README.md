@@ -7,7 +7,7 @@ You can read more about this project on the blog.
 ### Week 1:
 - Monday 9/01: Setting up workflow + defining research question
 - Tuesday 10/01: Setting up blog  + Start wireframes
-- Wednesday 11/01: Writing user stories + Researching no-code apps + making planning + Working on flow of app
+- Wednesday 11/01: Researching no-code apps + making planning + Working on flow of app
 - Thursday 12/01: Writing user stories + Working out flow and wireframes
 - Friday 13/01: Finishing wireframes
 
