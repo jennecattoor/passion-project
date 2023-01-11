@@ -8,15 +8,15 @@ You can read more about this project on the blog.
 - Monday 9/01: Setting up workflow + defining research question
 - Tuesday 10/01: Setting up blog  + Start wireframes
 - Wednesday 11/01: Writing user stories + Researching no-code apps + making planning + Working on flow of app
-- Thursday 12/01: Working out flow and finishing wireframes
-- Friday 13/01: User testing wireframes + making adjustments
+- Thursday 12/01: Writing user stories + Working out flow and wireframes
+- Friday 13/01: Finishing wireframes
 
 ### Week 2
-- Monday 16/01: Reading docs + Trying out the first no-code tool + Writing about it
-- Tuesday 17/01: Reading docs + Testing out the second no-code tool
-- Wednesday 18/01: Reading docs + Testing out third no-code tool
-- Thursday 19/01: Reading docs + Testing out fourth no-code tool
-- Friday 20/01: Extra day in case of delays when testing
+- Monday 16/01: User testing wireframes + adding it to blog
+- Tuesday 17/01: Reading docs + Testing out the first no-code tool
+- Wednesday 18/01: Reading docs + Testing out second no-code tool
+- Thursday 19/01: Reading docs + Testing out third no-code tool
+- Friday 20/01: Reading docs + Testing out fourth no-code tool
 
 ### Week 3
 - Monday 23/01: Deciding which tool I will make the app with + finishing section on blog
