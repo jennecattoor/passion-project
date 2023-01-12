@@ -9,7 +9,7 @@ You can read more about this project on the blog.
 - Tuesday 10/01: Setting up blog  + Start wireframes
 - Wednesday 11/01: Researching no-code apps + making planning + Working on flow of app
 - Thursday 12/01: Writing user stories + Working out flow and wireframes
-- Friday 13/01: Finishing wireframes
+- Friday 13/01: Finishing wireframes + designing app
 
 ### Week 2
 - Monday 16/01: User testing wireframes + adding it to blog
