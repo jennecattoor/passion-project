@@ -32,3 +32,6 @@ You can read more about this project on the blog.
 
 ## User stories
 You can find all the user stories under the Projects tab
+
+## Coach feedback
+You can find the consult feedback under the Wiki's tab
