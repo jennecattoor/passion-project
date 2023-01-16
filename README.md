@@ -1,5 +1,4 @@
 # Personal Passion Project
-Personal Passion Project where I dive deeper into no-code apps
 ## Blog
 You can read more about this project on the blog.
 [Link to blog](https://medium.com/@jennecattoor/making-a-sophisticated-no-code-app-in-2023-2a401010b32f?source=friends_link&sk=c3f473f679a2263e397975ab6b965535)
@@ -30,3 +29,6 @@ You can read more about this project on the blog.
 - Tuesday 31/01: Extra day in case of delays
 - Wednesday 1/02: Making presentation for Jury
 - Tuesday 2/02: Presenting to jury
+
+## User stories
+You can find all the user stories under the Projects tab
