@@ -125,6 +125,21 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               path: 'allEvents',
               requireAuth: true,
               builder: (context, params) => AllEventsWidget(),
+            ),
+            FFRoute(
+              name: 'EventDetails',
+              path: 'eventDetails',
+              requireAuth: true,
+              builder: (context, params) => EventDetailsWidget(
+                events: params.getParam(
+                    'events', ParamType.DocumentReference, false, ['events']),
+              ),
+            ),
+            FFRoute(
+              name: 'LostChildReport',
+              path: 'lostChildReport',
+              requireAuth: true,
+              builder: (context, params) => LostChildReportWidget(),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ).toRoute(appStateNotifier),
