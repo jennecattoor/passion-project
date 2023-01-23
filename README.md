@@ -1,37 +1,31 @@
-# Personal Passion Project
-## Blog
-You can read more about this project on the blog.
-[Link to blog](https://medium.com/@jennecattoor/making-a-sophisticated-no-code-app-in-2023-2a401010b32f?source=friends_link&sk=c3f473f679a2263e397975ab6b965535)
-## Planning
-### Week 1:
-- Monday 9/01: Setting up workflow + defining research question
-- Tuesday 10/01: Setting up blog  + Start wireframes
-- Wednesday 11/01: Researching no-code apps + making planning + Working on flow of app
-- Thursday 12/01: Writing user stories + Working out flow and wireframes
-- Friday 13/01: Finishing wireframes + designing app
+# Lifeguard KH
 
-### Week 2
-- Monday 16/01: User testing wireframes + adding it to blog
-- Tuesday 17/01: Reading docs + Testing out the first no-code tool
-- Wednesday 18/01: Reading docs + Testing out second no-code tool
-- Thursday 19/01: Reading docs + Testing out third no-code tool
-- Friday 20/01: Reading docs + Testing out fourth no-code tool
+A new Flutter project.
 
-### Week 3
-- Monday 23/01: Deciding which tool I will make the app with + finishing section on blog
-- Tuesday 24/01: Making the complete app in chosen tool
-- Wednesday 25/01: Making the complete app in chosen tool
-- Thursday 26/01: Making the complete app in chosen tool
-- Friday 27/01: Finishing app in chosen tool + Adding it to the blog
+## Getting Started
 
-### Week 4
-- Monday 30/01: Finishing Blog + project
-- Tuesday 31/01: Extra day in case of delays
-- Wednesday 1/02: Making presentation for Jury
-- Tuesday 2/02: Presenting to jury
+FlutterFlow projects are built to run on the Flutter _stable_ release.
 
-## User stories
-You can find all the user stories under the Projects tab
+### IMPORTANT:
 
-## Coach feedback
-You can find the consult feedback under the Wiki's tab
+For projects with Firestore integration, you must first run the following commands to ensure the project compiles:
+
+```
+flutter pub get
+flutter packages pub run build_runner build --delete-conflicting-outputs
+```
+
+This command creates the generated files that parse each Record from Firestore into a schema object.
+
+### Getting started continued:
+
+This project is a starting point for a Flutter application.
+
+A few resources to get you started if this is your first Flutter project:
+
+- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
+- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+
+For help getting started with Flutter, view our
+[online documentation](https://flutter.dev/docs), which offers tutorials,
+samples, guidance on mobile development, and a full API reference.

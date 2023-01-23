@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "1059345607761",
+    "project_id": "lifeguard-kh",
+    "storage_bucket": "lifeguard-kh.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1059345607761:android:84407290669798b9f5dc70",
+        "android_client_info": {
+          "package_name": "com.lifeguardkh"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1059345607761-lu167ihvpcjdade63frvtrk8d3h442c4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBtuEvKb96NlPsDE5tq6_HkZ8u0Tm4Md9M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1059345607761-lu167ihvpcjdade63frvtrk8d3h442c4.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1059345607761-grkf8ijsv11k33nvr6bcelgu0g66bgs4.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.lifeguardkh"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
