@@ -12,9 +12,6 @@ abstract class PostsRecord implements Built<PostsRecord, PostsRecordBuilder> {
   @BuiltValueField(wireName: 'post_name')
   String? get postName;
 
-  @BuiltValueField(wireName: 'post_id')
-  int? get postId;
-
   @BuiltValueField(wireName: 'post_lifeguards')
   DocumentReference? get postLifeguards;
 
@@ -22,9 +19,8 @@ abstract class PostsRecord implements Built<PostsRecord, PostsRecordBuilder> {
   DocumentReference? get ffRef;
   DocumentReference get reference => ffRef!;
 
-  static void _initializeBuilder(PostsRecordBuilder builder) => builder
-    ..postName = ''
-    ..postId = 0;
+  static void _initializeBuilder(PostsRecordBuilder builder) =>
+      builder..postName = '';
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('posts');
@@ -49,7 +45,6 @@ abstract class PostsRecord implements Built<PostsRecord, PostsRecordBuilder> {
 
 Map<String, dynamic> createPostsRecordData({
   String? postName,
-  int? postId,
   DocumentReference? postLifeguards,
 }) {
   final firestoreData = serializers.toFirestore(
@@ -57,7 +52,6 @@ Map<String, dynamic> createPostsRecordData({
     PostsRecord(
       (p) => p
         ..postName = postName
-        ..postId = postId
         ..postLifeguards = postLifeguards,
     ),
   );

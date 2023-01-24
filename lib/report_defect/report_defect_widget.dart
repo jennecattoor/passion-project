@@ -13,20 +13,19 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class LostChildReportWidget extends StatefulWidget {
-  const LostChildReportWidget({Key? key}) : super(key: key);
+class ReportDefectWidget extends StatefulWidget {
+  const ReportDefectWidget({Key? key}) : super(key: key);
 
   @override
-  _LostChildReportWidgetState createState() => _LostChildReportWidgetState();
+  _ReportDefectWidgetState createState() => _ReportDefectWidgetState();
 }
 
-class _LostChildReportWidgetState extends State<LostChildReportWidget> {
+class _ReportDefectWidgetState extends State<ReportDefectWidget> {
   bool isMediaUploading = false;
   String uploadedFileUrl = '';
 
-  String? dropdonwnKindValue;
   String? dropdownPostValue;
-  TextEditingController? textFieldDescriptionController;
+  TextEditingController? defectDescriptionController;
   final _unfocusNode = FocusNode();
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final formKey = GlobalKey<FormState>();
@@ -34,14 +33,14 @@ class _LostChildReportWidgetState extends State<LostChildReportWidget> {
   @override
   void initState() {
     super.initState();
-    textFieldDescriptionController = TextEditingController();
+    defectDescriptionController = TextEditingController();
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
   void dispose() {
     _unfocusNode.dispose();
-    textFieldDescriptionController?.dispose();
+    defectDescriptionController?.dispose();
     super.dispose();
   }
 
@@ -87,7 +86,7 @@ class _LostChildReportWidgetState extends State<LostChildReportWidget> {
                         },
                       ),
                       Text(
-                        'Verloren persoon melden',
+                        'Defect of tekort melden',
                         style: FlutterFlowTheme.of(context).title1,
                       ),
                     ],
@@ -117,7 +116,7 @@ class _LostChildReportWidgetState extends State<LostChildReportWidget> {
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(12, 24, 0, 0),
                         child: Text(
-                          'Gelieve een persoon pas als verloren te melden indien deze al langer vermist is dan  15 minuten.',
+                          'Is er iets defect of tekort op je post? Vul het hier in',
                           style: FlutterFlowTheme.of(context).bodyText1,
                         ),
                       ),
@@ -168,46 +167,13 @@ class _LostChildReportWidgetState extends State<LostChildReportWidget> {
                               Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     0, 12, 0, 12),
-                                child: FlutterFlowDropDown<String>(
-                                  options: [
-                                    'Kind zoekt ouders',
-                                    'Ouders zoeken kind',
-                                    'Ander geval'
-                                  ],
-                                  onChanged: (val) =>
-                                      setState(() => dropdonwnKindValue = val),
-                                  width: double.infinity,
-                                  height: 50,
-                                  textStyle: FlutterFlowTheme.of(context)
-                                      .bodyText1
-                                      .override(
-                                        fontFamily: 'SFPro',
-                                        color: Colors.black,
-                                        useGoogleFonts: false,
-                                      ),
-                                  hintText: 'Selecteer soort geval',
-                                  fillColor: Colors.white,
-                                  elevation: 2,
-                                  borderColor:
-                                      FlutterFlowTheme.of(context).primaryText,
-                                  borderWidth: 1.5,
-                                  borderRadius: 10,
-                                  margin: EdgeInsetsDirectional.fromSTEB(
-                                      12, 4, 12, 4),
-                                  hidesUnderline: true,
-                                ),
-                              ),
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    0, 12, 0, 12),
                                 child: TextFormField(
-                                  controller: textFieldDescriptionController,
+                                  controller: defectDescriptionController,
                                   autofocus: true,
                                   obscureText: false,
                                   decoration: InputDecoration(
-                                    labelText: 'Beschrijving kind',
-                                    hintText:
-                                        'Haarkleur, kledij, naam, laatst gezien...',
+                                    labelText: 'Beschrijving defect of tekort',
+                                    hintText: 'Hou het kort maar krachtig',
                                     hintStyle: FlutterFlowTheme.of(context)
                                         .bodyText2
                                         .override(
@@ -333,63 +299,27 @@ class _LostChildReportWidgetState extends State<LostChildReportWidget> {
                                     }
 
                                     if (dropdownPostValue == null) {
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                        SnackBar(
-                                          content: Text(
-                                            'Gelieve een post te selecteren',
-                                            style: TextStyle(),
-                                          ),
-                                          duration:
-                                              Duration(milliseconds: 4000),
-                                          backgroundColor:
-                                              FlutterFlowTheme.of(context)
-                                                  .tertiaryColor,
-                                        ),
-                                      );
-                                      return;
-                                    }
-                                    if (dropdonwnKindValue == null) {
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                        SnackBar(
-                                          content: Text(
-                                            'Gelieve een soort geval te selecteren',
-                                            style: TextStyle(),
-                                          ),
-                                          duration:
-                                              Duration(milliseconds: 4000),
-                                          backgroundColor: Color(0x00000000),
-                                        ),
-                                      );
                                       return;
                                     }
 
-                                    if (uploadedFileUrl == null ||
-                                        uploadedFileUrl.isEmpty) {
-                                      return;
-                                    }
-
-                                    final lostChildsCreateData = {
-                                      ...createLostChildsRecordData(
-                                        childDescription:
-                                            textFieldDescriptionController!
-                                                .text,
-                                        childImage: uploadedFileUrl,
-                                        createdUser: currentUserDisplayName,
-                                        childPost: dropdownPostValue,
+                                    final defectsCreateData = {
+                                      ...createDefectsRecordData(
+                                        defectPost: dropdownPostValue,
+                                        defectDescription:
+                                            defectDescriptionController!.text,
+                                        defectImage: uploadedFileUrl,
                                       ),
                                       'created_time':
                                           FieldValue.serverTimestamp(),
                                     };
-                                    await LostChildsRecord.collection
+                                    await DefectsRecord.collection
                                         .doc()
-                                        .set(lostChildsCreateData);
+                                        .set(defectsCreateData);
                                     context.pop();
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
                                         content: Text(
-                                          'Succesvol verloren persoon gemeld',
+                                          'Succesvol verstuurd',
                                           style: TextStyle(
                                             color: FlutterFlowTheme.of(context)
                                                 .primaryText,
@@ -402,7 +332,7 @@ class _LostChildReportWidgetState extends State<LostChildReportWidget> {
                                       ),
                                     );
                                   },
-                                  text: 'Verloren persoon melden',
+                                  text: 'Defect of tekort melden',
                                   options: FFButtonOptions(
                                     width: double.infinity,
                                     height: 40,

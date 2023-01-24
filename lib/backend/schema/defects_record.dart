@@ -10,21 +10,26 @@ abstract class DefectsRecord
     implements Built<DefectsRecord, DefectsRecordBuilder> {
   static Serializer<DefectsRecord> get serializer => _$defectsRecordSerializer;
 
-  @BuiltValueField(wireName: 'defect_post')
-  DocumentReference? get defectPost;
-
   @BuiltValueField(wireName: 'defect_description')
   String? get defectDescription;
 
   @BuiltValueField(wireName: 'created_time')
   DateTime? get createdTime;
 
+  @BuiltValueField(wireName: 'defect_post')
+  String? get defectPost;
+
+  @BuiltValueField(wireName: 'defect_image')
+  String? get defectImage;
+
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
   DocumentReference get reference => ffRef!;
 
-  static void _initializeBuilder(DefectsRecordBuilder builder) =>
-      builder..defectDescription = '';
+  static void _initializeBuilder(DefectsRecordBuilder builder) => builder
+    ..defectDescription = ''
+    ..defectPost = ''
+    ..defectImage = '';
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('defects');
@@ -48,17 +53,19 @@ abstract class DefectsRecord
 }
 
 Map<String, dynamic> createDefectsRecordData({
-  DocumentReference? defectPost,
   String? defectDescription,
   DateTime? createdTime,
+  String? defectPost,
+  String? defectImage,
 }) {
   final firestoreData = serializers.toFirestore(
     DefectsRecord.serializer,
     DefectsRecord(
       (d) => d
-        ..defectPost = defectPost
         ..defectDescription = defectDescription
-        ..createdTime = createdTime,
+        ..createdTime = createdTime
+        ..defectPost = defectPost
+        ..defectImage = defectImage,
     ),
   );
 

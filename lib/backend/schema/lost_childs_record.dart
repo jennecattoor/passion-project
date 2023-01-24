@@ -11,9 +11,6 @@ abstract class LostChildsRecord
   static Serializer<LostChildsRecord> get serializer =>
       _$lostChildsRecordSerializer;
 
-  @BuiltValueField(wireName: 'child_post')
-  DocumentReference? get childPost;
-
   @BuiltValueField(wireName: 'child_description')
   String? get childDescription;
 
@@ -29,6 +26,9 @@ abstract class LostChildsRecord
   @BuiltValueField(wireName: 'created_user')
   String? get createdUser;
 
+  @BuiltValueField(wireName: 'child_post')
+  String? get childPost;
+
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
   DocumentReference get reference => ffRef!;
@@ -37,7 +37,8 @@ abstract class LostChildsRecord
     ..childDescription = ''
     ..childImage = ''
     ..childFound = false
-    ..createdUser = '';
+    ..createdUser = ''
+    ..childPost = '';
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('lost_childs');
@@ -61,23 +62,23 @@ abstract class LostChildsRecord
 }
 
 Map<String, dynamic> createLostChildsRecordData({
-  DocumentReference? childPost,
   String? childDescription,
   String? childImage,
   DateTime? createdTime,
   bool? childFound,
   String? createdUser,
+  String? childPost,
 }) {
   final firestoreData = serializers.toFirestore(
     LostChildsRecord.serializer,
     LostChildsRecord(
       (l) => l
-        ..childPost = childPost
         ..childDescription = childDescription
         ..childImage = childImage
         ..createdTime = createdTime
         ..childFound = childFound
-        ..createdUser = createdUser,
+        ..createdUser = createdUser
+        ..childPost = childPost,
     ),
   );
 

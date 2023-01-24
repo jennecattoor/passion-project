@@ -113,14 +113,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                   : PlanningWidget(),
             ),
             FFRoute(
-              name: 'Account',
-              path: 'account',
-              requireAuth: true,
-              builder: (context, params) => params.isEmpty
-                  ? NavBarPage(initialPage: 'Account')
-                  : AccountWidget(),
-            ),
-            FFRoute(
               name: 'AllEvents',
               path: 'allEvents',
               requireAuth: true,
@@ -136,10 +128,35 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               ),
             ),
             FFRoute(
+              name: 'AllLunch',
+              path: 'allLunch',
+              requireAuth: true,
+              builder: (context, params) => AllLunchWidget(),
+            ),
+            FFRoute(
+              name: 'Account',
+              path: 'account',
+              requireAuth: true,
+              builder: (context, params) => params.isEmpty
+                  ? NavBarPage(initialPage: 'Account')
+                  : AccountWidget(),
+            ),
+            FFRoute(
               name: 'LostChildReport',
               path: 'lostChildReport',
               requireAuth: true,
               builder: (context, params) => LostChildReportWidget(),
+            ),
+            FFRoute(
+              name: 'ResetPassword',
+              path: 'resetPassword',
+              builder: (context, params) => ResetPasswordWidget(),
+            ),
+            FFRoute(
+              name: 'ReportDefect',
+              path: 'reportDefect',
+              requireAuth: true,
+              builder: (context, params) => ReportDefectWidget(),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ).toRoute(appStateNotifier),

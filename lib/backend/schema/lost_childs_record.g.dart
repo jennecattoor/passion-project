@@ -21,14 +21,6 @@ class _$LostChildsRecordSerializer
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[];
     Object? value;
-    value = object.childPost;
-    if (value != null) {
-      result
-        ..add('child_post')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(
-                DocumentReference, const [const FullType.nullable(Object)])));
-    }
     value = object.childDescription;
     if (value != null) {
       result
@@ -57,6 +49,20 @@ class _$LostChildsRecordSerializer
         ..add(
             serializers.serialize(value, specifiedType: const FullType(bool)));
     }
+    value = object.createdUser;
+    if (value != null) {
+      result
+        ..add('created_user')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.childPost;
+    if (value != null) {
+      result
+        ..add('child_post')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
     value = object.ffRef;
     if (value != null) {
       result
@@ -80,12 +86,6 @@ class _$LostChildsRecordSerializer
       iterator.moveNext();
       final Object? value = iterator.current;
       switch (key) {
-        case 'child_post':
-          result.childPost = serializers.deserialize(value,
-              specifiedType: const FullType(DocumentReference, const [
-                const FullType.nullable(Object)
-              ])) as DocumentReference<Object?>?;
-          break;
         case 'child_description':
           result.childDescription = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
@@ -102,6 +102,14 @@ class _$LostChildsRecordSerializer
           result.childFound = serializers.deserialize(value,
               specifiedType: const FullType(bool)) as bool?;
           break;
+        case 'created_user':
+          result.createdUser = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'child_post':
+          result.childPost = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
         case 'Document__Reference__Field':
           result.ffRef = serializers.deserialize(value,
               specifiedType: const FullType(DocumentReference, const [
@@ -117,8 +125,6 @@ class _$LostChildsRecordSerializer
 
 class _$LostChildsRecord extends LostChildsRecord {
   @override
-  final DocumentReference<Object?>? childPost;
-  @override
   final String? childDescription;
   @override
   final String? childImage;
@@ -127,6 +133,10 @@ class _$LostChildsRecord extends LostChildsRecord {
   @override
   final bool? childFound;
   @override
+  final String? createdUser;
+  @override
+  final String? childPost;
+  @override
   final DocumentReference<Object?>? ffRef;
 
   factory _$LostChildsRecord(
@@ -134,11 +144,12 @@ class _$LostChildsRecord extends LostChildsRecord {
       (new LostChildsRecordBuilder()..update(updates))._build();
 
   _$LostChildsRecord._(
-      {this.childPost,
-      this.childDescription,
+      {this.childDescription,
       this.childImage,
       this.createdTime,
       this.childFound,
+      this.createdUser,
+      this.childPost,
       this.ffRef})
       : super._();
 
@@ -154,11 +165,12 @@ class _$LostChildsRecord extends LostChildsRecord {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is LostChildsRecord &&
-        childPost == other.childPost &&
         childDescription == other.childDescription &&
         childImage == other.childImage &&
         createdTime == other.createdTime &&
         childFound == other.childFound &&
+        createdUser == other.createdUser &&
+        childPost == other.childPost &&
         ffRef == other.ffRef;
   }
 
@@ -167,21 +179,26 @@ class _$LostChildsRecord extends LostChildsRecord {
     return $jf($jc(
         $jc(
             $jc(
-                $jc($jc($jc(0, childPost.hashCode), childDescription.hashCode),
-                    childImage.hashCode),
-                createdTime.hashCode),
-            childFound.hashCode),
+                $jc(
+                    $jc(
+                        $jc($jc(0, childDescription.hashCode),
+                            childImage.hashCode),
+                        createdTime.hashCode),
+                    childFound.hashCode),
+                createdUser.hashCode),
+            childPost.hashCode),
         ffRef.hashCode));
   }
 
   @override
   String toString() {
     return (newBuiltValueToStringHelper(r'LostChildsRecord')
-          ..add('childPost', childPost)
           ..add('childDescription', childDescription)
           ..add('childImage', childImage)
           ..add('createdTime', createdTime)
           ..add('childFound', childFound)
+          ..add('createdUser', createdUser)
+          ..add('childPost', childPost)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -190,11 +207,6 @@ class _$LostChildsRecord extends LostChildsRecord {
 class LostChildsRecordBuilder
     implements Builder<LostChildsRecord, LostChildsRecordBuilder> {
   _$LostChildsRecord? _$v;
-
-  DocumentReference<Object?>? _childPost;
-  DocumentReference<Object?>? get childPost => _$this._childPost;
-  set childPost(DocumentReference<Object?>? childPost) =>
-      _$this._childPost = childPost;
 
   String? _childDescription;
   String? get childDescription => _$this._childDescription;
@@ -213,6 +225,14 @@ class LostChildsRecordBuilder
   bool? get childFound => _$this._childFound;
   set childFound(bool? childFound) => _$this._childFound = childFound;
 
+  String? _createdUser;
+  String? get createdUser => _$this._createdUser;
+  set createdUser(String? createdUser) => _$this._createdUser = createdUser;
+
+  String? _childPost;
+  String? get childPost => _$this._childPost;
+  set childPost(String? childPost) => _$this._childPost = childPost;
+
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
   set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
@@ -224,11 +244,12 @@ class LostChildsRecordBuilder
   LostChildsRecordBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _childPost = $v.childPost;
       _childDescription = $v.childDescription;
       _childImage = $v.childImage;
       _createdTime = $v.createdTime;
       _childFound = $v.childFound;
+      _createdUser = $v.createdUser;
+      _childPost = $v.childPost;
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -252,11 +273,12 @@ class LostChildsRecordBuilder
   _$LostChildsRecord _build() {
     final _$result = _$v ??
         new _$LostChildsRecord._(
-            childPost: childPost,
             childDescription: childDescription,
             childImage: childImage,
             createdTime: createdTime,
             childFound: childFound,
+            createdUser: createdUser,
+            childPost: childPost,
             ffRef: ffRef);
     replace(_$result);
     return _$result;
