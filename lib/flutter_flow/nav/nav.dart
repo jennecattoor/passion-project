@@ -128,12 +128,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               ),
             ),
             FFRoute(
-              name: 'AllLunch',
-              path: 'allLunch',
-              requireAuth: true,
-              builder: (context, params) => AllLunchWidget(),
-            ),
-            FFRoute(
               name: 'Account',
               path: 'account',
               requireAuth: true,
@@ -163,6 +157,20 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               path: 'leaveArrangementForm',
               requireAuth: true,
               builder: (context, params) => LeaveArrangementFormWidget(),
+            ),
+            FFRoute(
+              name: 'AllLunch',
+              path: 'allLunch',
+              requireAuth: true,
+              builder: (context, params) => AllLunchWidget(),
+            ),
+            FFRoute(
+              name: 'LeavePreferences',
+              path: 'leavePreferences',
+              requireAuth: true,
+              builder: (context, params) => LeavePreferencesWidget(
+                post: params.getParam('post', ParamType.String),
+              ),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ).toRoute(appStateNotifier),

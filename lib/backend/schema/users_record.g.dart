@@ -61,20 +61,33 @@ class _$UsersRecordSerializer implements StructuredSerializer<UsersRecord> {
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    value = object.postName;
-    if (value != null) {
-      result
-        ..add('post_name')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(
-                DocumentReference, const [const FullType.nullable(Object)])));
-    }
     value = object.admin;
     if (value != null) {
       result
         ..add('admin')
         ..add(
             serializers.serialize(value, specifiedType: const FullType(bool)));
+    }
+    value = object.lifeguardPost;
+    if (value != null) {
+      result
+        ..add('lifeguard_post')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(
+                DocumentReference, const [const FullType.nullable(Object)])));
+    }
+    value = object.userAccepted;
+    if (value != null) {
+      result
+        ..add('user_accepted')
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
+    }
+    value = object.postNumber;
+    if (value != null) {
+      result
+        ..add('post_number')
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
     value = object.ffRef;
     if (value != null) {
@@ -122,15 +135,23 @@ class _$UsersRecordSerializer implements StructuredSerializer<UsersRecord> {
           result.phoneNumber = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
           break;
-        case 'post_name':
-          result.postName = serializers.deserialize(value,
+        case 'admin':
+          result.admin = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool?;
+          break;
+        case 'lifeguard_post':
+          result.lifeguardPost = serializers.deserialize(value,
               specifiedType: const FullType(DocumentReference, const [
                 const FullType.nullable(Object)
               ])) as DocumentReference<Object?>?;
           break;
-        case 'admin':
-          result.admin = serializers.deserialize(value,
+        case 'user_accepted':
+          result.userAccepted = serializers.deserialize(value,
               specifiedType: const FullType(bool)) as bool?;
+          break;
+        case 'post_number':
+          result.postNumber = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int?;
           break;
         case 'Document__Reference__Field':
           result.ffRef = serializers.deserialize(value,
@@ -159,9 +180,13 @@ class _$UsersRecord extends UsersRecord {
   @override
   final String? phoneNumber;
   @override
-  final DocumentReference<Object?>? postName;
-  @override
   final bool? admin;
+  @override
+  final DocumentReference<Object?>? lifeguardPost;
+  @override
+  final bool? userAccepted;
+  @override
+  final int? postNumber;
   @override
   final DocumentReference<Object?>? ffRef;
 
@@ -175,8 +200,10 @@ class _$UsersRecord extends UsersRecord {
       this.uid,
       this.createdTime,
       this.phoneNumber,
-      this.postName,
       this.admin,
+      this.lifeguardPost,
+      this.userAccepted,
+      this.postNumber,
       this.ffRef})
       : super._();
 
@@ -197,8 +224,10 @@ class _$UsersRecord extends UsersRecord {
         uid == other.uid &&
         createdTime == other.createdTime &&
         phoneNumber == other.phoneNumber &&
-        postName == other.postName &&
         admin == other.admin &&
+        lifeguardPost == other.lifeguardPost &&
+        userAccepted == other.userAccepted &&
+        postNumber == other.postNumber &&
         ffRef == other.ffRef;
   }
 
@@ -211,14 +240,18 @@ class _$UsersRecord extends UsersRecord {
                     $jc(
                         $jc(
                             $jc(
-                                $jc($jc(0, email.hashCode),
-                                    displayName.hashCode),
-                                photoUrl.hashCode),
-                            uid.hashCode),
-                        createdTime.hashCode),
-                    phoneNumber.hashCode),
-                postName.hashCode),
-            admin.hashCode),
+                                $jc(
+                                    $jc(
+                                        $jc($jc(0, email.hashCode),
+                                            displayName.hashCode),
+                                        photoUrl.hashCode),
+                                    uid.hashCode),
+                                createdTime.hashCode),
+                            phoneNumber.hashCode),
+                        admin.hashCode),
+                    lifeguardPost.hashCode),
+                userAccepted.hashCode),
+            postNumber.hashCode),
         ffRef.hashCode));
   }
 
@@ -231,8 +264,10 @@ class _$UsersRecord extends UsersRecord {
           ..add('uid', uid)
           ..add('createdTime', createdTime)
           ..add('phoneNumber', phoneNumber)
-          ..add('postName', postName)
           ..add('admin', admin)
+          ..add('lifeguardPost', lifeguardPost)
+          ..add('userAccepted', userAccepted)
+          ..add('postNumber', postNumber)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -265,14 +300,22 @@ class UsersRecordBuilder implements Builder<UsersRecord, UsersRecordBuilder> {
   String? get phoneNumber => _$this._phoneNumber;
   set phoneNumber(String? phoneNumber) => _$this._phoneNumber = phoneNumber;
 
-  DocumentReference<Object?>? _postName;
-  DocumentReference<Object?>? get postName => _$this._postName;
-  set postName(DocumentReference<Object?>? postName) =>
-      _$this._postName = postName;
-
   bool? _admin;
   bool? get admin => _$this._admin;
   set admin(bool? admin) => _$this._admin = admin;
+
+  DocumentReference<Object?>? _lifeguardPost;
+  DocumentReference<Object?>? get lifeguardPost => _$this._lifeguardPost;
+  set lifeguardPost(DocumentReference<Object?>? lifeguardPost) =>
+      _$this._lifeguardPost = lifeguardPost;
+
+  bool? _userAccepted;
+  bool? get userAccepted => _$this._userAccepted;
+  set userAccepted(bool? userAccepted) => _$this._userAccepted = userAccepted;
+
+  int? _postNumber;
+  int? get postNumber => _$this._postNumber;
+  set postNumber(int? postNumber) => _$this._postNumber = postNumber;
 
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
@@ -291,8 +334,10 @@ class UsersRecordBuilder implements Builder<UsersRecord, UsersRecordBuilder> {
       _uid = $v.uid;
       _createdTime = $v.createdTime;
       _phoneNumber = $v.phoneNumber;
-      _postName = $v.postName;
       _admin = $v.admin;
+      _lifeguardPost = $v.lifeguardPost;
+      _userAccepted = $v.userAccepted;
+      _postNumber = $v.postNumber;
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -322,8 +367,10 @@ class UsersRecordBuilder implements Builder<UsersRecord, UsersRecordBuilder> {
             uid: uid,
             createdTime: createdTime,
             phoneNumber: phoneNumber,
-            postName: postName,
             admin: admin,
+            lifeguardPost: lifeguardPost,
+            userAccepted: userAccepted,
+            postNumber: postNumber,
             ffRef: ffRef);
     replace(_$result);
     return _$result;

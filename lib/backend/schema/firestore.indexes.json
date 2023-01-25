@@ -1,3 +1,18 @@
 {
-  "indexes": []
+  "indexes": [
+    {
+      "collectionGroup": "users",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "lifeguard_post",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "post_number",
+          "order": "ASCENDING"
+        }
+      ]
+    }
+  ]
 }

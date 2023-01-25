@@ -7,6 +7,7 @@ import 'lunch_record.dart';
 import 'posts_record.dart';
 import 'lost_childs_record.dart';
 import 'defects_record.dart';
+import 'leave_preferences_record.dart';
 
 import 'index.dart';
 
@@ -23,6 +24,7 @@ const kDocumentReferenceField = 'Document__Reference__Field';
   PostsRecord,
   LostChildsRecord,
   DefectsRecord,
+  LeavePreferencesRecord,
 ])
 final Serializers serializers = (_$serializers.toBuilder()
       ..add(DocumentReferenceSerializer())

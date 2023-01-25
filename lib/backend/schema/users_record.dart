@@ -25,10 +25,16 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
   @BuiltValueField(wireName: 'phone_number')
   String? get phoneNumber;
 
-  @BuiltValueField(wireName: 'post_name')
-  DocumentReference? get postName;
-
   bool? get admin;
+
+  @BuiltValueField(wireName: 'lifeguard_post')
+  DocumentReference? get lifeguardPost;
+
+  @BuiltValueField(wireName: 'user_accepted')
+  bool? get userAccepted;
+
+  @BuiltValueField(wireName: 'post_number')
+  int? get postNumber;
 
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
@@ -40,7 +46,9 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
     ..photoUrl = ''
     ..uid = ''
     ..phoneNumber = ''
-    ..admin = false;
+    ..admin = false
+    ..userAccepted = false
+    ..postNumber = 0;
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('users');
@@ -70,8 +78,10 @@ Map<String, dynamic> createUsersRecordData({
   String? uid,
   DateTime? createdTime,
   String? phoneNumber,
-  DocumentReference? postName,
   bool? admin,
+  DocumentReference? lifeguardPost,
+  bool? userAccepted,
+  int? postNumber,
 }) {
   final firestoreData = serializers.toFirestore(
     UsersRecord.serializer,
@@ -83,8 +93,10 @@ Map<String, dynamic> createUsersRecordData({
         ..uid = uid
         ..createdTime = createdTime
         ..phoneNumber = phoneNumber
-        ..postName = postName
-        ..admin = admin,
+        ..admin = admin
+        ..lifeguardPost = lifeguardPost
+        ..userAccepted = userAccepted
+        ..postNumber = postNumber,
     ),
   );
 

@@ -12,9 +12,6 @@ abstract class PostsRecord implements Built<PostsRecord, PostsRecordBuilder> {
   @BuiltValueField(wireName: 'post_name')
   String? get postName;
 
-  @BuiltValueField(wireName: 'post_lifeguards')
-  DocumentReference? get postLifeguards;
-
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
   DocumentReference get reference => ffRef!;
@@ -45,14 +42,11 @@ abstract class PostsRecord implements Built<PostsRecord, PostsRecordBuilder> {
 
 Map<String, dynamic> createPostsRecordData({
   String? postName,
-  DocumentReference? postLifeguards,
 }) {
   final firestoreData = serializers.toFirestore(
     PostsRecord.serializer,
     PostsRecord(
-      (p) => p
-        ..postName = postName
-        ..postLifeguards = postLifeguards,
+      (p) => p..postName = postName,
     ),
   );
 

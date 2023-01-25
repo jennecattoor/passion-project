@@ -11,6 +11,7 @@ import 'schema/lunch_record.dart';
 import 'schema/posts_record.dart';
 import 'schema/lost_childs_record.dart';
 import 'schema/defects_record.dart';
+import 'schema/leave_preferences_record.dart';
 import 'schema/serializers.dart';
 
 export 'dart:async' show StreamSubscription;
@@ -24,6 +25,7 @@ export 'schema/lunch_record.dart';
 export 'schema/posts_record.dart';
 export 'schema/lost_childs_record.dart';
 export 'schema/defects_record.dart';
+export 'schema/leave_preferences_record.dart';
 
 /// Functions to query UsersRecords (as a Stream and as a Future).
 Future<int> queryUsersRecordCount({
@@ -336,6 +338,59 @@ Future<FFFirestorePage<DefectsRecord>> queryDefectsRecordPage({
       pageSize: pageSize,
       isStream: isStream,
     );
+
+/// Functions to query LeavePreferencesRecords (as a Stream and as a Future).
+Future<int> queryLeavePreferencesRecordCount({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+}) =>
+    queryCollectionCount(
+      LeavePreferencesRecord.collection,
+      queryBuilder: queryBuilder,
+      limit: limit,
+    );
+
+Stream<List<LeavePreferencesRecord>> queryLeavePreferencesRecord({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollection(
+      LeavePreferencesRecord.collection,
+      LeavePreferencesRecord.serializer,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<List<LeavePreferencesRecord>> queryLeavePreferencesRecordOnce({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollectionOnce(
+      LeavePreferencesRecord.collection,
+      LeavePreferencesRecord.serializer,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<FFFirestorePage<LeavePreferencesRecord>>
+    queryLeavePreferencesRecordPage({
+  Query Function(Query)? queryBuilder,
+  DocumentSnapshot? nextPageMarker,
+  required int pageSize,
+  required bool isStream,
+}) =>
+        queryCollectionPage(
+          LeavePreferencesRecord.collection,
+          LeavePreferencesRecord.serializer,
+          queryBuilder: queryBuilder,
+          nextPageMarker: nextPageMarker,
+          pageSize: pageSize,
+          isStream: isStream,
+        );
 
 Future<int> queryCollectionCount(
   Query collection, {
