@@ -77,107 +77,136 @@ class _AccountWidgetState extends State<AccountWidget> {
                     borderRadius: BorderRadius.circular(24),
                   ),
                   child: Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(12, 12, 12, 12),
+                    padding: EdgeInsetsDirectional.fromSTEB(12, 24, 12, 24),
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Row(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            AuthUserStreamWidget(
-                              builder: (context) => Container(
-                                width: 100,
-                                height: 100,
-                                clipBehavior: Clip.antiAlias,
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                ),
-                                child: Image.network(
-                                  valueOrDefault<String>(
-                                    currentUserPhoto,
-                                    'https://firebasestorage.googleapis.com/v0/b/lifeguard-kh.appspot.com/o/users%2FfOoyIyKaBkd8vfAdrZ7C12xEIvx2%2Fuploads%2Fimage.webp?alt=media&token=de324c7a-d11c-4471-a58d-d6399e9e52fb',
-                                  ),
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
-                              child: Text(
-                                'Profielfoto uploaden',
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyText1
-                                    .override(
-                                      fontFamily: 'SFPro',
-                                      color: FlutterFlowTheme.of(context)
-                                          .alternate,
-                                      decoration: TextDecoration.underline,
-                                      useGoogleFonts: false,
+                        Container(
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            color: FlutterFlowTheme.of(context)
+                                .secondaryBackground,
+                          ),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.max,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  AuthUserStreamWidget(
+                                    builder: (context) => Container(
+                                      width: 100,
+                                      height: 100,
+                                      clipBehavior: Clip.antiAlias,
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                      ),
+                                      child: Image.network(
+                                        valueOrDefault<String>(
+                                          currentUserPhoto,
+                                          'https://firebasestorage.googleapis.com/v0/b/lifeguard-kh.appspot.com/o/users%2FfOoyIyKaBkd8vfAdrZ7C12xEIvx2%2Fuploads%2Fimage.webp?alt=media&token=de324c7a-d11c-4471-a58d-d6399e9e52fb',
+                                        ),
+                                        fit: BoxFit.cover,
+                                      ),
                                     ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 12),
-                          child: FFButtonWidget(
-                            onPressed: () {
-                              print('Button pressed ...');
-                            },
-                            text: 'Wachtwoord veranderen',
-                            options: FFButtonOptions(
-                              width: double.infinity,
-                              height: 40,
-                              color: FlutterFlowTheme.of(context)
-                                  .primaryBackground,
-                              textStyle: FlutterFlowTheme.of(context)
-                                  .subtitle2
-                                  .override(
-                                    fontFamily: 'SFPro',
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryColor,
-                                    useGoogleFonts: false,
                                   ),
-                              borderSide: BorderSide(
-                                color:
-                                    FlutterFlowTheme.of(context).primaryColor,
-                                width: 1.5,
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        12, 0, 0, 0),
+                                    child: Text(
+                                      'Profielfoto uploaden',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyText1
+                                          .override(
+                                            fontFamily: 'SFPro',
+                                            color: FlutterFlowTheme.of(context)
+                                                .alternate,
+                                            decoration:
+                                                TextDecoration.underline,
+                                            useGoogleFonts: false,
+                                          ),
+                                    ),
+                                  ),
+                                ],
                               ),
-                              borderRadius: BorderRadius.circular(8),
-                            ),
+                            ],
                           ),
                         ),
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 12),
-                          child: FFButtonWidget(
-                            onPressed: () async {
-                              GoRouter.of(context).prepareAuthEvent();
-                              await signOut();
-
-                              context.goNamedAuth('Login', mounted);
-                            },
-                            text: 'Log uit',
-                            options: FFButtonOptions(
-                              width: double.infinity,
-                              height: 40,
-                              color: FlutterFlowTheme.of(context)
-                                  .primaryBackground,
-                              textStyle: FlutterFlowTheme.of(context)
-                                  .subtitle2
-                                  .override(
-                                    fontFamily: 'SFPro',
+                        Container(
+                          decoration: BoxDecoration(
+                            color: FlutterFlowTheme.of(context)
+                                .secondaryBackground,
+                          ),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    0, 12, 0, 12),
+                                child: FFButtonWidget(
+                                  onPressed: () async {
+                                    context.pushNamed('ResetPassword');
+                                  },
+                                  text: 'Wachtwoord veranderen',
+                                  options: FFButtonOptions(
+                                    width: double.infinity,
+                                    height: 40,
                                     color: FlutterFlowTheme.of(context)
-                                        .primaryColor,
-                                    useGoogleFonts: false,
+                                        .primaryBackground,
+                                    textStyle: FlutterFlowTheme.of(context)
+                                        .subtitle2
+                                        .override(
+                                          fontFamily: 'SFPro',
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryColor,
+                                          useGoogleFonts: false,
+                                        ),
+                                    borderSide: BorderSide(
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryColor,
+                                      width: 1.5,
+                                    ),
+                                    borderRadius: BorderRadius.circular(8),
                                   ),
-                              borderSide: BorderSide(
-                                color:
-                                    FlutterFlowTheme.of(context).primaryColor,
-                                width: 1.5,
+                                ),
                               ),
-                              borderRadius: BorderRadius.circular(8),
-                            ),
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    0, 12, 0, 12),
+                                child: FFButtonWidget(
+                                  onPressed: () async {
+                                    GoRouter.of(context).prepareAuthEvent();
+                                    await signOut();
+
+                                    context.goNamedAuth('Login', mounted);
+                                  },
+                                  text: 'Log uit',
+                                  options: FFButtonOptions(
+                                    width: double.infinity,
+                                    height: 40,
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryBackground,
+                                    textStyle: FlutterFlowTheme.of(context)
+                                        .subtitle2
+                                        .override(
+                                          fontFamily: 'SFPro',
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryColor,
+                                          useGoogleFonts: false,
+                                        ),
+                                    borderSide: BorderSide(
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryColor,
+                                      width: 1.5,
+                                    ),
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ],

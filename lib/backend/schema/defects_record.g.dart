@@ -20,14 +20,6 @@ class _$DefectsRecordSerializer implements StructuredSerializer<DefectsRecord> {
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[];
     Object? value;
-    value = object.defectPost;
-    if (value != null) {
-      result
-        ..add('defect_post')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(
-                DocumentReference, const [const FullType.nullable(Object)])));
-    }
     value = object.defectDescription;
     if (value != null) {
       result
@@ -41,6 +33,20 @@ class _$DefectsRecordSerializer implements StructuredSerializer<DefectsRecord> {
         ..add('created_time')
         ..add(serializers.serialize(value,
             specifiedType: const FullType(DateTime)));
+    }
+    value = object.defectPost;
+    if (value != null) {
+      result
+        ..add('defect_post')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.defectImage;
+    if (value != null) {
+      result
+        ..add('defect_image')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
     }
     value = object.ffRef;
     if (value != null) {
@@ -65,12 +71,6 @@ class _$DefectsRecordSerializer implements StructuredSerializer<DefectsRecord> {
       iterator.moveNext();
       final Object? value = iterator.current;
       switch (key) {
-        case 'defect_post':
-          result.defectPost = serializers.deserialize(value,
-              specifiedType: const FullType(DocumentReference, const [
-                const FullType.nullable(Object)
-              ])) as DocumentReference<Object?>?;
-          break;
         case 'defect_description':
           result.defectDescription = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
@@ -78,6 +78,14 @@ class _$DefectsRecordSerializer implements StructuredSerializer<DefectsRecord> {
         case 'created_time':
           result.createdTime = serializers.deserialize(value,
               specifiedType: const FullType(DateTime)) as DateTime?;
+          break;
+        case 'defect_post':
+          result.defectPost = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'defect_image':
+          result.defectImage = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'Document__Reference__Field':
           result.ffRef = serializers.deserialize(value,
@@ -94,11 +102,13 @@ class _$DefectsRecordSerializer implements StructuredSerializer<DefectsRecord> {
 
 class _$DefectsRecord extends DefectsRecord {
   @override
-  final DocumentReference<Object?>? defectPost;
-  @override
   final String? defectDescription;
   @override
   final DateTime? createdTime;
+  @override
+  final String? defectPost;
+  @override
+  final String? defectImage;
   @override
   final DocumentReference<Object?>? ffRef;
 
@@ -106,7 +116,11 @@ class _$DefectsRecord extends DefectsRecord {
       (new DefectsRecordBuilder()..update(updates))._build();
 
   _$DefectsRecord._(
-      {this.defectPost, this.defectDescription, this.createdTime, this.ffRef})
+      {this.defectDescription,
+      this.createdTime,
+      this.defectPost,
+      this.defectImage,
+      this.ffRef})
       : super._();
 
   @override
@@ -120,26 +134,30 @@ class _$DefectsRecord extends DefectsRecord {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is DefectsRecord &&
-        defectPost == other.defectPost &&
         defectDescription == other.defectDescription &&
         createdTime == other.createdTime &&
+        defectPost == other.defectPost &&
+        defectImage == other.defectImage &&
         ffRef == other.ffRef;
   }
 
   @override
   int get hashCode {
     return $jf($jc(
-        $jc($jc($jc(0, defectPost.hashCode), defectDescription.hashCode),
-            createdTime.hashCode),
+        $jc(
+            $jc($jc($jc(0, defectDescription.hashCode), createdTime.hashCode),
+                defectPost.hashCode),
+            defectImage.hashCode),
         ffRef.hashCode));
   }
 
   @override
   String toString() {
     return (newBuiltValueToStringHelper(r'DefectsRecord')
-          ..add('defectPost', defectPost)
           ..add('defectDescription', defectDescription)
           ..add('createdTime', createdTime)
+          ..add('defectPost', defectPost)
+          ..add('defectImage', defectImage)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -149,11 +167,6 @@ class DefectsRecordBuilder
     implements Builder<DefectsRecord, DefectsRecordBuilder> {
   _$DefectsRecord? _$v;
 
-  DocumentReference<Object?>? _defectPost;
-  DocumentReference<Object?>? get defectPost => _$this._defectPost;
-  set defectPost(DocumentReference<Object?>? defectPost) =>
-      _$this._defectPost = defectPost;
-
   String? _defectDescription;
   String? get defectDescription => _$this._defectDescription;
   set defectDescription(String? defectDescription) =>
@@ -162,6 +175,14 @@ class DefectsRecordBuilder
   DateTime? _createdTime;
   DateTime? get createdTime => _$this._createdTime;
   set createdTime(DateTime? createdTime) => _$this._createdTime = createdTime;
+
+  String? _defectPost;
+  String? get defectPost => _$this._defectPost;
+  set defectPost(String? defectPost) => _$this._defectPost = defectPost;
+
+  String? _defectImage;
+  String? get defectImage => _$this._defectImage;
+  set defectImage(String? defectImage) => _$this._defectImage = defectImage;
 
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
@@ -174,9 +195,10 @@ class DefectsRecordBuilder
   DefectsRecordBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _defectPost = $v.defectPost;
       _defectDescription = $v.defectDescription;
       _createdTime = $v.createdTime;
+      _defectPost = $v.defectPost;
+      _defectImage = $v.defectImage;
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -200,9 +222,10 @@ class DefectsRecordBuilder
   _$DefectsRecord _build() {
     final _$result = _$v ??
         new _$DefectsRecord._(
-            defectPost: defectPost,
             defectDescription: defectDescription,
             createdTime: createdTime,
+            defectPost: defectPost,
+            defectImage: defectImage,
             ffRef: ffRef);
     replace(_$result);
     return _$result;

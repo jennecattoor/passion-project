@@ -69,11 +69,12 @@ class _$UsersRecordSerializer implements StructuredSerializer<UsersRecord> {
             specifiedType: const FullType(
                 DocumentReference, const [const FullType.nullable(Object)])));
     }
-    value = object.lifeguardRanking;
+    value = object.admin;
     if (value != null) {
       result
-        ..add('lifeguard_ranking')
-        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
+        ..add('admin')
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
     }
     value = object.ffRef;
     if (value != null) {
@@ -127,9 +128,9 @@ class _$UsersRecordSerializer implements StructuredSerializer<UsersRecord> {
                 const FullType.nullable(Object)
               ])) as DocumentReference<Object?>?;
           break;
-        case 'lifeguard_ranking':
-          result.lifeguardRanking = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int?;
+        case 'admin':
+          result.admin = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool?;
           break;
         case 'Document__Reference__Field':
           result.ffRef = serializers.deserialize(value,
@@ -160,7 +161,7 @@ class _$UsersRecord extends UsersRecord {
   @override
   final DocumentReference<Object?>? postName;
   @override
-  final int? lifeguardRanking;
+  final bool? admin;
   @override
   final DocumentReference<Object?>? ffRef;
 
@@ -175,7 +176,7 @@ class _$UsersRecord extends UsersRecord {
       this.createdTime,
       this.phoneNumber,
       this.postName,
-      this.lifeguardRanking,
+      this.admin,
       this.ffRef})
       : super._();
 
@@ -197,7 +198,7 @@ class _$UsersRecord extends UsersRecord {
         createdTime == other.createdTime &&
         phoneNumber == other.phoneNumber &&
         postName == other.postName &&
-        lifeguardRanking == other.lifeguardRanking &&
+        admin == other.admin &&
         ffRef == other.ffRef;
   }
 
@@ -217,7 +218,7 @@ class _$UsersRecord extends UsersRecord {
                         createdTime.hashCode),
                     phoneNumber.hashCode),
                 postName.hashCode),
-            lifeguardRanking.hashCode),
+            admin.hashCode),
         ffRef.hashCode));
   }
 
@@ -231,7 +232,7 @@ class _$UsersRecord extends UsersRecord {
           ..add('createdTime', createdTime)
           ..add('phoneNumber', phoneNumber)
           ..add('postName', postName)
-          ..add('lifeguardRanking', lifeguardRanking)
+          ..add('admin', admin)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -269,10 +270,9 @@ class UsersRecordBuilder implements Builder<UsersRecord, UsersRecordBuilder> {
   set postName(DocumentReference<Object?>? postName) =>
       _$this._postName = postName;
 
-  int? _lifeguardRanking;
-  int? get lifeguardRanking => _$this._lifeguardRanking;
-  set lifeguardRanking(int? lifeguardRanking) =>
-      _$this._lifeguardRanking = lifeguardRanking;
+  bool? _admin;
+  bool? get admin => _$this._admin;
+  set admin(bool? admin) => _$this._admin = admin;
 
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
@@ -292,7 +292,7 @@ class UsersRecordBuilder implements Builder<UsersRecord, UsersRecordBuilder> {
       _createdTime = $v.createdTime;
       _phoneNumber = $v.phoneNumber;
       _postName = $v.postName;
-      _lifeguardRanking = $v.lifeguardRanking;
+      _admin = $v.admin;
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -323,7 +323,7 @@ class UsersRecordBuilder implements Builder<UsersRecord, UsersRecordBuilder> {
             createdTime: createdTime,
             phoneNumber: phoneNumber,
             postName: postName,
-            lifeguardRanking: lifeguardRanking,
+            admin: admin,
             ffRef: ffRef);
     replace(_$result);
     return _$result;

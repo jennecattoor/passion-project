@@ -157,6 +157,12 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               path: 'reportDefect',
               requireAuth: true,
               builder: (context, params) => ReportDefectWidget(),
+            ),
+            FFRoute(
+              name: 'LeaveArrangementForm',
+              path: 'leaveArrangementForm',
+              requireAuth: true,
+              builder: (context, params) => LeaveArrangementFormWidget(),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ).toRoute(appStateNotifier),

@@ -12,3 +12,5 @@ export 'lost_child_report/lost_child_report_widget.dart'
     show LostChildReportWidget;
 export 'reset_password/reset_password_widget.dart' show ResetPasswordWidget;
 export 'report_defect/report_defect_widget.dart' show ReportDefectWidget;
+export 'leave_arrangement_form/leave_arrangement_form_widget.dart'
+    show LeaveArrangementFormWidget;

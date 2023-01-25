@@ -62,7 +62,7 @@ class _PostWidgetState extends State<PostWidget> {
                   children: [
                     Container(
                       width: double.infinity,
-                      height: 200,
+                      height: 150,
                       decoration: BoxDecoration(
                         color: FlutterFlowTheme.of(context).primaryColor,
                         borderRadius: BorderRadius.only(
@@ -85,27 +85,14 @@ class _PostWidgetState extends State<PostWidget> {
                               ),
                               style: FlutterFlowTheme.of(context).title1,
                             ),
-                            if (currentUserDocument!.postName != null)
-                              Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(0, 8, 0, 0),
-                                child: Text(
-                                  'De planning moet nog gemaakt worden, gelieve u gewenste verlof voorkeur zo snel mogelijk door te geven.',
-                                  style: FlutterFlowTheme.of(context).subtitle2,
-                                ),
-                              ),
                           ],
                         ),
                       ),
                     ),
-                    if ((currentUserDocument!.postName == null) &&
-                        responsiveVisibility(
-                          context: context,
-                          phone: false,
-                        ))
+                    if (currentUserDocument!.postName == null)
                       Padding(
                         padding:
-                            EdgeInsetsDirectional.fromSTEB(12, 160, 12, 12),
+                            EdgeInsetsDirectional.fromSTEB(12, 110, 12, 12),
                         child: Container(
                           width: double.infinity,
                           decoration: BoxDecoration(
@@ -131,9 +118,14 @@ class _PostWidgetState extends State<PostWidget> {
                                   'Geen post',
                                   style: FlutterFlowTheme.of(context).title2,
                                 ),
-                                Text(
-                                  'U bent nog niet toegewezen aan een post. Mogelijke redenen hiervoor zijn:\n\n- U moet nog door de administratie toegevoegd worden aan een post\n- U bent niet tewerkgesteld\n- Het is geen werkmaand\n\nIndien u op de eerste dag van u tewerkstelling nog geen post heeft. Gelieve dan de hoofdredder te contacteren',
-                                  style: FlutterFlowTheme.of(context).bodyText1,
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0, 6, 0, 6),
+                                  child: Text(
+                                    'U bent nog niet toegewezen aan een post. Mogelijke redenen hiervoor zijn:\n\n- U moet nog door de administratie toegevoegd worden aan een post\n- U bent niet tewerkgesteld\n- Het is geen werkmaand\n\nIndien u op de eerste dag van u tewerkstelling nog geen post heeft. Gelieve dan de hoofdredder te contacteren',
+                                    style:
+                                        FlutterFlowTheme.of(context).bodyText1,
+                                  ),
                                 ),
                               ],
                             ),
@@ -143,7 +135,7 @@ class _PostWidgetState extends State<PostWidget> {
                     if (currentUserDocument!.postName != null)
                       Padding(
                         padding:
-                            EdgeInsetsDirectional.fromSTEB(12, 160, 12, 12),
+                            EdgeInsetsDirectional.fromSTEB(12, 110, 12, 12),
                         child: Container(
                           width: double.infinity,
                           decoration: BoxDecoration(
@@ -182,10 +174,63 @@ class _PostWidgetState extends State<PostWidget> {
                                         style:
                                             FlutterFlowTheme.of(context).title2,
                                       ),
-                                      Text(
-                                        'De planning moet nog gemaakt worden, gelieve u gewenste verlof voorkeur zo snel mogelijk door te geven.',
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyText1,
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0, 6, 0, 0),
+                                        child: Text(
+                                          'De planning moet nog gemaakt worden, gelieve u gewenste verlof voorkeur zo snel mogelijk door te geven.',
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyText1,
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0, 6, 0, 6),
+                                        child: FFButtonWidget(
+                                          onPressed: () async {
+                                            context.pushNamed(
+                                                'LeaveArrangementForm');
+                                          },
+                                          text: 'Verlof voorkeur kiezen',
+                                          options: FFButtonOptions(
+                                            width: double.infinity,
+                                            height: 40,
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryColor,
+                                            textStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .subtitle2
+                                                    .override(
+                                                      fontFamily: 'SFPro',
+                                                      color: Colors.white,
+                                                      useGoogleFonts: false,
+                                                    ),
+                                            borderSide: BorderSide(
+                                              color: Colors.transparent,
+                                              width: 1,
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(8),
+                                          ),
+                                        ),
+                                      ),
+                                      ListView(
+                                        padding: EdgeInsets.zero,
+                                        shrinkWrap: true,
+                                        scrollDirection: Axis.vertical,
+                                        children: [
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0, 6, 0, 0),
+                                            child: Text(
+                                              'Redders',
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyText1,
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ],
                                   ),

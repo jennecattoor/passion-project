@@ -56,7 +56,7 @@ class _PlanningWidgetState extends State<PlanningWidget> {
                 padding: EdgeInsetsDirectional.fromSTEB(12, 160, 12, 12),
                 child: Container(
                   width: double.infinity,
-                  height: 100,
+                  height: double.infinity,
                   decoration: BoxDecoration(
                     color: FlutterFlowTheme.of(context).secondaryBackground,
                     boxShadow: [

@@ -21,9 +21,6 @@ abstract class LunchRecord implements Built<LunchRecord, LunchRecordBuilder> {
   @BuiltValueField(wireName: 'lunch_address')
   String? get lunchAddress;
 
-  @BuiltValueField(wireName: 'lunch_link')
-  String? get lunchLink;
-
   @BuiltValueField(wireName: 'lunch_discount')
   int? get lunchDiscount;
 
@@ -36,7 +33,6 @@ abstract class LunchRecord implements Built<LunchRecord, LunchRecordBuilder> {
     ..lunchPhone = ''
     ..lunchCategory = ''
     ..lunchAddress = ''
-    ..lunchLink = ''
     ..lunchDiscount = 0;
 
   static CollectionReference get collection =>
@@ -65,7 +61,6 @@ Map<String, dynamic> createLunchRecordData({
   String? lunchPhone,
   String? lunchCategory,
   String? lunchAddress,
-  String? lunchLink,
   int? lunchDiscount,
 }) {
   final firestoreData = serializers.toFirestore(
@@ -76,7 +71,6 @@ Map<String, dynamic> createLunchRecordData({
         ..lunchPhone = lunchPhone
         ..lunchCategory = lunchCategory
         ..lunchAddress = lunchAddress
-        ..lunchLink = lunchLink
         ..lunchDiscount = lunchDiscount,
     ),
   );

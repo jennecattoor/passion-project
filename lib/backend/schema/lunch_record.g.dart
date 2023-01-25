@@ -47,13 +47,6 @@ class _$LunchRecordSerializer implements StructuredSerializer<LunchRecord> {
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    value = object.lunchLink;
-    if (value != null) {
-      result
-        ..add('lunch_link')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
-    }
     value = object.lunchDiscount;
     if (value != null) {
       result
@@ -98,10 +91,6 @@ class _$LunchRecordSerializer implements StructuredSerializer<LunchRecord> {
           result.lunchAddress = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
           break;
-        case 'lunch_link':
-          result.lunchLink = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String?;
-          break;
         case 'lunch_discount':
           result.lunchDiscount = serializers.deserialize(value,
               specifiedType: const FullType(int)) as int?;
@@ -129,8 +118,6 @@ class _$LunchRecord extends LunchRecord {
   @override
   final String? lunchAddress;
   @override
-  final String? lunchLink;
-  @override
   final int? lunchDiscount;
   @override
   final DocumentReference<Object?>? ffRef;
@@ -143,7 +130,6 @@ class _$LunchRecord extends LunchRecord {
       this.lunchPhone,
       this.lunchCategory,
       this.lunchAddress,
-      this.lunchLink,
       this.lunchDiscount,
       this.ffRef})
       : super._();
@@ -163,7 +149,6 @@ class _$LunchRecord extends LunchRecord {
         lunchPhone == other.lunchPhone &&
         lunchCategory == other.lunchCategory &&
         lunchAddress == other.lunchAddress &&
-        lunchLink == other.lunchLink &&
         lunchDiscount == other.lunchDiscount &&
         ffRef == other.ffRef;
   }
@@ -173,11 +158,9 @@ class _$LunchRecord extends LunchRecord {
     return $jf($jc(
         $jc(
             $jc(
-                $jc(
-                    $jc($jc($jc(0, lunchName.hashCode), lunchPhone.hashCode),
-                        lunchCategory.hashCode),
-                    lunchAddress.hashCode),
-                lunchLink.hashCode),
+                $jc($jc($jc(0, lunchName.hashCode), lunchPhone.hashCode),
+                    lunchCategory.hashCode),
+                lunchAddress.hashCode),
             lunchDiscount.hashCode),
         ffRef.hashCode));
   }
@@ -189,7 +172,6 @@ class _$LunchRecord extends LunchRecord {
           ..add('lunchPhone', lunchPhone)
           ..add('lunchCategory', lunchCategory)
           ..add('lunchAddress', lunchAddress)
-          ..add('lunchLink', lunchLink)
           ..add('lunchDiscount', lunchDiscount)
           ..add('ffRef', ffRef))
         .toString();
@@ -216,10 +198,6 @@ class LunchRecordBuilder implements Builder<LunchRecord, LunchRecordBuilder> {
   String? get lunchAddress => _$this._lunchAddress;
   set lunchAddress(String? lunchAddress) => _$this._lunchAddress = lunchAddress;
 
-  String? _lunchLink;
-  String? get lunchLink => _$this._lunchLink;
-  set lunchLink(String? lunchLink) => _$this._lunchLink = lunchLink;
-
   int? _lunchDiscount;
   int? get lunchDiscount => _$this._lunchDiscount;
   set lunchDiscount(int? lunchDiscount) =>
@@ -240,7 +218,6 @@ class LunchRecordBuilder implements Builder<LunchRecord, LunchRecordBuilder> {
       _lunchPhone = $v.lunchPhone;
       _lunchCategory = $v.lunchCategory;
       _lunchAddress = $v.lunchAddress;
-      _lunchLink = $v.lunchLink;
       _lunchDiscount = $v.lunchDiscount;
       _ffRef = $v.ffRef;
       _$v = null;
@@ -269,7 +246,6 @@ class LunchRecordBuilder implements Builder<LunchRecord, LunchRecordBuilder> {
             lunchPhone: lunchPhone,
             lunchCategory: lunchCategory,
             lunchAddress: lunchAddress,
-            lunchLink: lunchLink,
             lunchDiscount: lunchDiscount,
             ffRef: ffRef);
     replace(_$result);
