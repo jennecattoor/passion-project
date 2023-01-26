@@ -171,6 +171,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               builder: (context, params) => LeavePreferencesWidget(
                 post: params.getParam('post', ParamType.String),
               ),
+            ),
+            FFRoute(
+              name: 'ChangeInformation',
+              path: 'changeInformation',
+              builder: (context, params) => ChangeInformationWidget(),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ).toRoute(appStateNotifier),

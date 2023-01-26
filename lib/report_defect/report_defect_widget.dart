@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class ReportDefectWidget extends StatefulWidget {
   const ReportDefectWidget({Key? key}) : super(key: key);
@@ -46,6 +47,8 @@ class _ReportDefectWidgetState extends State<ReportDefectWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -131,36 +134,57 @@ class _ReportDefectWidgetState extends State<ReportDefectWidget> {
                             Padding(
                               padding:
                                   EdgeInsetsDirectional.fromSTEB(0, 12, 0, 12),
-                              child: FlutterFlowDropDown<String>(
-                                options: [
-                                  'Post 1A',
-                                  'Post 1B',
-                                  'Post 2',
-                                  'Post 3',
-                                  'Post 4',
-                                  'Post 5'
-                                ],
-                                onChanged: (val) =>
-                                    setState(() => dropdownPostValue = val),
-                                width: double.infinity,
-                                height: 50,
-                                textStyle: FlutterFlowTheme.of(context)
-                                    .bodyText1
-                                    .override(
-                                      fontFamily: 'SFPro',
-                                      color: Colors.black,
-                                      useGoogleFonts: false,
-                                    ),
-                                hintText: 'Selecteer post',
-                                fillColor: Colors.white,
-                                elevation: 2,
-                                borderColor:
-                                    FlutterFlowTheme.of(context).primaryText,
-                                borderWidth: 1.5,
-                                borderRadius: 10,
-                                margin: EdgeInsetsDirectional.fromSTEB(
-                                    12, 4, 12, 4),
-                                hidesUnderline: true,
+                              child: StreamBuilder<List<PostsRecord>>(
+                                stream: queryPostsRecord(
+                                  limit: 12,
+                                ),
+                                builder: (context, snapshot) {
+                                  // Customize what your widget looks like when it's loading.
+                                  if (!snapshot.hasData) {
+                                    return Center(
+                                      child: SizedBox(
+                                        width: 50,
+                                        height: 50,
+                                        child: SpinKitRing(
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryColor,
+                                          size: 50,
+                                        ),
+                                      ),
+                                    );
+                                  }
+                                  List<PostsRecord>
+                                      dropdownPostPostsRecordList =
+                                      snapshot.data!;
+                                  return FlutterFlowDropDown<String>(
+                                    options: dropdownPostPostsRecordList
+                                        .map((e) => e.postName)
+                                        .withoutNulls
+                                        .toList()
+                                        .toList(),
+                                    onChanged: (val) =>
+                                        setState(() => dropdownPostValue = val),
+                                    width: double.infinity,
+                                    height: 50,
+                                    textStyle: FlutterFlowTheme.of(context)
+                                        .bodyText1
+                                        .override(
+                                          fontFamily: 'SFPro',
+                                          color: Colors.black,
+                                          useGoogleFonts: false,
+                                        ),
+                                    hintText: 'Selecteer post',
+                                    fillColor: Colors.white,
+                                    elevation: 2,
+                                    borderColor: FlutterFlowTheme.of(context)
+                                        .primaryText,
+                                    borderWidth: 1.5,
+                                    borderRadius: 10,
+                                    margin: EdgeInsetsDirectional.fromSTEB(
+                                        12, 4, 12, 4),
+                                    hidesUnderline: true,
+                                  );
+                                },
                               ),
                             ),
                             Padding(

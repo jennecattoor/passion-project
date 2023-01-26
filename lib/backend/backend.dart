@@ -12,6 +12,8 @@ import 'schema/posts_record.dart';
 import 'schema/lost_childs_record.dart';
 import 'schema/defects_record.dart';
 import 'schema/leave_preferences_record.dart';
+import 'schema/daily_reports_record.dart';
+import 'schema/working_arrangement_record.dart';
 import 'schema/serializers.dart';
 
 export 'dart:async' show StreamSubscription;
@@ -26,6 +28,8 @@ export 'schema/posts_record.dart';
 export 'schema/lost_childs_record.dart';
 export 'schema/defects_record.dart';
 export 'schema/leave_preferences_record.dart';
+export 'schema/daily_reports_record.dart';
+export 'schema/working_arrangement_record.dart';
 
 /// Functions to query UsersRecords (as a Stream and as a Future).
 Future<int> queryUsersRecordCount({
@@ -386,6 +390,111 @@ Future<FFFirestorePage<LeavePreferencesRecord>>
         queryCollectionPage(
           LeavePreferencesRecord.collection,
           LeavePreferencesRecord.serializer,
+          queryBuilder: queryBuilder,
+          nextPageMarker: nextPageMarker,
+          pageSize: pageSize,
+          isStream: isStream,
+        );
+
+/// Functions to query DailyReportsRecords (as a Stream and as a Future).
+Future<int> queryDailyReportsRecordCount({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+}) =>
+    queryCollectionCount(
+      DailyReportsRecord.collection,
+      queryBuilder: queryBuilder,
+      limit: limit,
+    );
+
+Stream<List<DailyReportsRecord>> queryDailyReportsRecord({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollection(
+      DailyReportsRecord.collection,
+      DailyReportsRecord.serializer,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<List<DailyReportsRecord>> queryDailyReportsRecordOnce({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollectionOnce(
+      DailyReportsRecord.collection,
+      DailyReportsRecord.serializer,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<FFFirestorePage<DailyReportsRecord>> queryDailyReportsRecordPage({
+  Query Function(Query)? queryBuilder,
+  DocumentSnapshot? nextPageMarker,
+  required int pageSize,
+  required bool isStream,
+}) =>
+    queryCollectionPage(
+      DailyReportsRecord.collection,
+      DailyReportsRecord.serializer,
+      queryBuilder: queryBuilder,
+      nextPageMarker: nextPageMarker,
+      pageSize: pageSize,
+      isStream: isStream,
+    );
+
+/// Functions to query WorkingArrangementRecords (as a Stream and as a Future).
+Future<int> queryWorkingArrangementRecordCount({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+}) =>
+    queryCollectionCount(
+      WorkingArrangementRecord.collection,
+      queryBuilder: queryBuilder,
+      limit: limit,
+    );
+
+Stream<List<WorkingArrangementRecord>> queryWorkingArrangementRecord({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollection(
+      WorkingArrangementRecord.collection,
+      WorkingArrangementRecord.serializer,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<List<WorkingArrangementRecord>> queryWorkingArrangementRecordOnce({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollectionOnce(
+      WorkingArrangementRecord.collection,
+      WorkingArrangementRecord.serializer,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<FFFirestorePage<WorkingArrangementRecord>>
+    queryWorkingArrangementRecordPage({
+  Query Function(Query)? queryBuilder,
+  DocumentSnapshot? nextPageMarker,
+  required int pageSize,
+  required bool isStream,
+}) =>
+        queryCollectionPage(
+          WorkingArrangementRecord.collection,
+          WorkingArrangementRecord.serializer,
           queryBuilder: queryBuilder,
           nextPageMarker: nextPageMarker,
           pageSize: pageSize,

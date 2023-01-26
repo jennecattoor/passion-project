@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class LeaveArrangementFormWidget extends StatefulWidget {
   const LeaveArrangementFormWidget({Key? key}) : super(key: key);
@@ -46,6 +47,8 @@ class _LeaveArrangementFormWidgetState
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -556,11 +559,13 @@ class _LeaveArrangementFormWidgetState
                                         'Voorkeur succesvol ingediend',
                                         style: TextStyle(
                                           color: FlutterFlowTheme.of(context)
-                                              .secondaryColor,
+                                              .primaryText,
                                         ),
                                       ),
                                       duration: Duration(milliseconds: 4000),
-                                      backgroundColor: Color(0x00000000),
+                                      backgroundColor:
+                                          FlutterFlowTheme.of(context)
+                                              .secondaryColor,
                                     ),
                                   );
                                 },

@@ -1,22 +1,30 @@
 import '../auth/auth_util.dart';
+import '../backend/backend.dart';
+import '../backend/firebase_storage/storage.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
+import '../flutter_flow/upload_media.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-class ResetPasswordWidget extends StatefulWidget {
-  const ResetPasswordWidget({Key? key}) : super(key: key);
+class ChangeInformationWidget extends StatefulWidget {
+  const ChangeInformationWidget({Key? key}) : super(key: key);
 
   @override
-  _ResetPasswordWidgetState createState() => _ResetPasswordWidgetState();
+  _ChangeInformationWidgetState createState() =>
+      _ChangeInformationWidgetState();
 }
 
-class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
+class _ChangeInformationWidgetState extends State<ChangeInformationWidget> {
+  bool isMediaUploading = false;
+  String uploadedFileUrl = '';
+
   TextEditingController? textFieldEmailController;
   final _unfocusNode = FocusNode();
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -79,7 +87,7 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                       },
                     ),
                     Text(
-                      'Wachtwoord veranderen',
+                      'Informatie veranderen',
                       style: FlutterFlowTheme.of(context).title1,
                     ),
                   ],
@@ -107,14 +115,7 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(12, 24, 12, 0),
-                      child: Text(
-                        'Gelieve u email in te vullen voor u wachtwoord te veranderen. Indien er een account bestaat met dit emailadres krijgt u een mail.',
-                        style: FlutterFlowTheme.of(context).bodyText1,
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(12, 12, 12, 24),
+                      padding: EdgeInsetsDirectional.fromSTEB(12, 24, 12, 24),
                       child: Form(
                         key: formKey,
                         autovalidateMode: AutovalidateMode.disabled,
@@ -122,6 +123,66 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                           mainAxisSize: MainAxisSize.max,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
+                            Padding(
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(0, 0, 0, 6),
+                              child: AuthUserStreamWidget(
+                                builder: (context) => InkWell(
+                                  onTap: () async {
+                                    final selectedMedia =
+                                        await selectMediaWithSourceBottomSheet(
+                                      context: context,
+                                      maxWidth: 1000.00,
+                                      maxHeight: 1000.00,
+                                      allowPhoto: true,
+                                    );
+                                    if (selectedMedia != null &&
+                                        selectedMedia.every((m) =>
+                                            validateFileFormat(
+                                                m.storagePath, context))) {
+                                      setState(() => isMediaUploading = true);
+                                      var downloadUrls = <String>[];
+                                      try {
+                                        downloadUrls = (await Future.wait(
+                                          selectedMedia.map(
+                                            (m) async => await uploadData(
+                                                m.storagePath, m.bytes),
+                                          ),
+                                        ))
+                                            .where((u) => u != null)
+                                            .map((u) => u!)
+                                            .toList();
+                                      } finally {
+                                        isMediaUploading = false;
+                                      }
+                                      if (downloadUrls.length ==
+                                          selectedMedia.length) {
+                                        setState(() => uploadedFileUrl =
+                                            downloadUrls.first);
+                                      } else {
+                                        setState(() {});
+                                        return;
+                                      }
+                                    }
+                                  },
+                                  child: Container(
+                                    width: 100,
+                                    height: 100,
+                                    clipBehavior: Clip.antiAlias,
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                    ),
+                                    child: Image.network(
+                                      valueOrDefault<String>(
+                                        currentUserPhoto,
+                                        'https://firebasestorage.googleapis.com/v0/b/lifeguard-kh.appspot.com/o/blank-profile-picture-973460_1280.webp?alt=media&token=768f889d-bc72-4d62-91ab-ab4d43752d44',
+                                      ),
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
                             Padding(
                               padding:
                                   EdgeInsetsDirectional.fromSTEB(0, 12, 0, 12),
@@ -188,7 +249,7 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                                 keyboardType: TextInputType.emailAddress,
                                 validator: (val) {
                                   if (val == null || val.isEmpty) {
-                                    return 'Field is required';
+                                    return 'Email invullen is verplicht';
                                   }
 
                                   return null;
@@ -200,22 +261,35 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                                   EdgeInsetsDirectional.fromSTEB(0, 12, 0, 8),
                               child: FFButtonWidget(
                                 onPressed: () async {
-                                  if (textFieldEmailController!.text.isEmpty) {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
-                                        content: Text(
-                                          'Email required!',
-                                        ),
-                                      ),
-                                    );
+                                  if (formKey.currentState == null ||
+                                      !formKey.currentState!.validate()) {
                                     return;
                                   }
-                                  await resetPassword(
+
+                                  final usersUpdateData = createUsersRecordData(
                                     email: textFieldEmailController!.text,
-                                    context: context,
+                                    photoUrl: uploadedFileUrl,
+                                  );
+                                  await currentUserReference!
+                                      .update(usersUpdateData);
+                                  context.pop();
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(
+                                        'Informatie succesvol aangepast',
+                                        style: TextStyle(
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryText,
+                                        ),
+                                      ),
+                                      duration: Duration(milliseconds: 4000),
+                                      backgroundColor:
+                                          FlutterFlowTheme.of(context)
+                                              .secondaryColor,
+                                    ),
                                   );
                                 },
-                                text: 'Email versturen',
+                                text: 'Informatie updaten',
                                 options: FFButtonOptions(
                                   width: double.infinity,
                                   height: 40,
