@@ -19,15 +19,15 @@ You can read more about this project on the blog.
 
 ### Week 3
 - Monday 23/01: Deciding which tool I will make the app with + finishing section on blog
-- Tuesday 24/01: Making the complete app in chosen tool
-- Wednesday 25/01: Making the complete app in chosen tool
-- Thursday 26/01: Making the complete app in chosen tool
-- Friday 27/01: Finishing app in chosen tool + Adding it to the blog
+- Tuesday 24/01: Setting up pages and forms of the app
+- Wednesday 25/01: Setting up events, lunch and post page
+- Thursday 26/01: Adding work schedule to app + Other features
+- Friday 27/01: Adjusting authentication + finishing up and adding to blog
 
 ### Week 4
-- Monday 30/01: Finishing Blog + project
-- Tuesday 31/01: Extra day in case of delays
-- Wednesday 1/02: Making presentation for Jury
+- Monday 30/01: Finishing Blog + project + Making demos for jury
+- Tuesday 31/01: Making presentation for Jury
+- Wednesday 1/02: Test-presentation on campus + finetuning it
 - Tuesday 2/02: Presenting to jury
 
 ## User stories
