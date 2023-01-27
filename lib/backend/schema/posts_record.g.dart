@@ -33,6 +33,13 @@ class _$PostsRecordSerializer implements StructuredSerializer<PostsRecord> {
         ..add(
             serializers.serialize(value, specifiedType: const FullType(bool)));
     }
+    value = object.postNumber;
+    if (value != null) {
+      result
+        ..add('post_number')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(double)));
+    }
     value = object.ffRef;
     if (value != null) {
       result
@@ -63,6 +70,10 @@ class _$PostsRecordSerializer implements StructuredSerializer<PostsRecord> {
           result.scheduleMade = serializers.deserialize(value,
               specifiedType: const FullType(bool)) as bool?;
           break;
+        case 'post_number':
+          result.postNumber = serializers.deserialize(value,
+              specifiedType: const FullType(double)) as double?;
+          break;
         case 'Document__Reference__Field':
           result.ffRef = serializers.deserialize(value,
               specifiedType: const FullType(DocumentReference, const [
@@ -82,12 +93,16 @@ class _$PostsRecord extends PostsRecord {
   @override
   final bool? scheduleMade;
   @override
+  final double? postNumber;
+  @override
   final DocumentReference<Object?>? ffRef;
 
   factory _$PostsRecord([void Function(PostsRecordBuilder)? updates]) =>
       (new PostsRecordBuilder()..update(updates))._build();
 
-  _$PostsRecord._({this.postName, this.scheduleMade, this.ffRef}) : super._();
+  _$PostsRecord._(
+      {this.postName, this.scheduleMade, this.postNumber, this.ffRef})
+      : super._();
 
   @override
   PostsRecord rebuild(void Function(PostsRecordBuilder) updates) =>
@@ -102,13 +117,16 @@ class _$PostsRecord extends PostsRecord {
     return other is PostsRecord &&
         postName == other.postName &&
         scheduleMade == other.scheduleMade &&
+        postNumber == other.postNumber &&
         ffRef == other.ffRef;
   }
 
   @override
   int get hashCode {
     return $jf($jc(
-        $jc($jc(0, postName.hashCode), scheduleMade.hashCode), ffRef.hashCode));
+        $jc($jc($jc(0, postName.hashCode), scheduleMade.hashCode),
+            postNumber.hashCode),
+        ffRef.hashCode));
   }
 
   @override
@@ -116,6 +134,7 @@ class _$PostsRecord extends PostsRecord {
     return (newBuiltValueToStringHelper(r'PostsRecord')
           ..add('postName', postName)
           ..add('scheduleMade', scheduleMade)
+          ..add('postNumber', postNumber)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -132,6 +151,10 @@ class PostsRecordBuilder implements Builder<PostsRecord, PostsRecordBuilder> {
   bool? get scheduleMade => _$this._scheduleMade;
   set scheduleMade(bool? scheduleMade) => _$this._scheduleMade = scheduleMade;
 
+  double? _postNumber;
+  double? get postNumber => _$this._postNumber;
+  set postNumber(double? postNumber) => _$this._postNumber = postNumber;
+
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
   set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
@@ -145,6 +168,7 @@ class PostsRecordBuilder implements Builder<PostsRecord, PostsRecordBuilder> {
     if ($v != null) {
       _postName = $v.postName;
       _scheduleMade = $v.scheduleMade;
+      _postNumber = $v.postNumber;
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -168,7 +192,10 @@ class PostsRecordBuilder implements Builder<PostsRecord, PostsRecordBuilder> {
   _$PostsRecord _build() {
     final _$result = _$v ??
         new _$PostsRecord._(
-            postName: postName, scheduleMade: scheduleMade, ffRef: ffRef);
+            postName: postName,
+            scheduleMade: scheduleMade,
+            postNumber: postNumber,
+            ffRef: ffRef);
     replace(_$result);
     return _$result;
   }

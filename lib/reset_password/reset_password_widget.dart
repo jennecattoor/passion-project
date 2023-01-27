@@ -49,7 +49,7 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
           children: [
             Container(
               width: double.infinity,
-              height: 150,
+              height: 170,
               decoration: BoxDecoration(
                 color: FlutterFlowTheme.of(context).primaryColor,
                 borderRadius: BorderRadius.only(
@@ -60,7 +60,7 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                 ),
               ),
               child: Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(16, 24, 16, 40),
+                padding: EdgeInsetsDirectional.fromSTEB(12, 48, 12, 50),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
                   children: [
@@ -87,7 +87,7 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
               ),
             ),
             Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(12, 110, 12, 12),
+              padding: EdgeInsetsDirectional.fromSTEB(12, 120, 12, 12),
               child: Container(
                 width: double.infinity,
                 height: double.infinity,
@@ -102,20 +102,21 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                   ],
                   borderRadius: BorderRadius.circular(24),
                 ),
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(12, 24, 12, 0),
-                      child: Text(
-                        'Gelieve u email in te vullen voor u wachtwoord te veranderen. Indien er een account bestaat met dit emailadres krijgt u een mail.',
-                        style: FlutterFlowTheme.of(context).bodyText1,
+                child: Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(12, 24, 12, 24),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Gelieve u email in te vullen voor u wachtwoord te veranderen. Indien er een account bestaat met dit email adres zult u een mail ontvangen om deze te veranderen.',
+                        style: FlutterFlowTheme.of(context).bodyText1.override(
+                              fontFamily: 'SFPro',
+                              fontSize: 18,
+                              useGoogleFonts: false,
+                            ),
                       ),
-                    ),
-                    Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(12, 12, 12, 24),
-                      child: Form(
+                      Form(
                         key: formKey,
                         autovalidateMode: AutovalidateMode.disabled,
                         child: Column(
@@ -132,14 +133,6 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                                 decoration: InputDecoration(
                                   labelText: 'Email',
                                   hintText: 'Email',
-                                  hintStyle: FlutterFlowTheme.of(context)
-                                      .bodyText2
-                                      .override(
-                                        fontFamily: 'SFPro',
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryText,
-                                        useGoogleFonts: false,
-                                      ),
                                   enabledBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
                                       color: FlutterFlowTheme.of(context)
@@ -188,7 +181,7 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                                 keyboardType: TextInputType.emailAddress,
                                 validator: (val) {
                                   if (val == null || val.isEmpty) {
-                                    return 'Field is required';
+                                    return 'Email is verplicht';
                                   }
 
                                   return null;
@@ -200,6 +193,11 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                                   EdgeInsetsDirectional.fromSTEB(0, 12, 0, 8),
                               child: FFButtonWidget(
                                 onPressed: () async {
+                                  if (formKey.currentState == null ||
+                                      !formKey.currentState!.validate()) {
+                                    return;
+                                  }
+
                                   if (textFieldEmailController!.text.isEmpty) {
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
@@ -239,8 +237,8 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                           ],
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),

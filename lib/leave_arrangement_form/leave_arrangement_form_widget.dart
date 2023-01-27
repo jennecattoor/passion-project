@@ -63,7 +63,7 @@ class _LeaveArrangementFormWidgetState
           children: [
             Container(
               width: double.infinity,
-              height: 150,
+              height: 170,
               decoration: BoxDecoration(
                 color: FlutterFlowTheme.of(context).primaryColor,
                 borderRadius: BorderRadius.only(
@@ -74,7 +74,7 @@ class _LeaveArrangementFormWidgetState
                 ),
               ),
               child: Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(16, 24, 16, 40),
+                padding: EdgeInsetsDirectional.fromSTEB(12, 48, 12, 50),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
                   children: [
@@ -101,7 +101,7 @@ class _LeaveArrangementFormWidgetState
               ),
             ),
             Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(12, 110, 12, 12),
+              padding: EdgeInsetsDirectional.fromSTEB(12, 120, 12, 12),
               child: Container(
                 width: double.infinity,
                 height: double.infinity,
@@ -121,7 +121,7 @@ class _LeaveArrangementFormWidgetState
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(12, 12, 12, 24),
+                      padding: EdgeInsetsDirectional.fromSTEB(12, 24, 12, 24),
                       child: Form(
                         key: formKey,
                         autovalidateMode: AutovalidateMode.disabled,
@@ -131,7 +131,7 @@ class _LeaveArrangementFormWidgetState
                           children: [
                             Padding(
                               padding:
-                                  EdgeInsetsDirectional.fromSTEB(0, 6, 0, 6),
+                                  EdgeInsetsDirectional.fromSTEB(0, 0, 0, 6),
                               child: Text(
                                 'Gelieve u voorkeur dagen van verlof in te dienen. Let op: dit is geen garantie dat je die dag verlof zal hebben.',
                                 style: FlutterFlowTheme.of(context)

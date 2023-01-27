@@ -16,5 +16,3 @@ export 'leave_arrangement_form/leave_arrangement_form_widget.dart'
 export 'all_lunch/all_lunch_widget.dart' show AllLunchWidget;
 export 'leave_preferences/leave_preferences_widget.dart'
     show LeavePreferencesWidget;
-export 'change_information/change_information_widget.dart'
-    show ChangeInformationWidget;

@@ -1,7 +1,11 @@
 import '../auth/auth_util.dart';
+import '../backend/backend.dart';
+import '../backend/firebase_storage/storage.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
+import '../flutter_flow/upload_media.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -16,6 +20,9 @@ class AccountWidget extends StatefulWidget {
 }
 
 class _AccountWidgetState extends State<AccountWidget> {
+  bool isMediaUploading = false;
+  String uploadedFileUrl = '';
+
   final _unfocusNode = FocusNode();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -45,7 +52,7 @@ class _AccountWidgetState extends State<AccountWidget> {
           children: [
             Container(
               width: double.infinity,
-              height: 150,
+              height: 170,
               decoration: BoxDecoration(
                 color: FlutterFlowTheme.of(context).primaryColor,
                 borderRadius: BorderRadius.only(
@@ -56,15 +63,22 @@ class _AccountWidgetState extends State<AccountWidget> {
                 ),
               ),
               child: Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(12, 36, 12, 40),
-                child: Text(
-                  'Account',
-                  style: FlutterFlowTheme.of(context).title1,
+                padding: EdgeInsetsDirectional.fromSTEB(12, 48, 12, 50),
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Account',
+                      style: FlutterFlowTheme.of(context).title1,
+                    ),
+                  ],
                 ),
               ),
             ),
             Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(12, 110, 12, 12),
+              padding: EdgeInsetsDirectional.fromSTEB(12, 120, 12, 12),
               child: Container(
                 width: double.infinity,
                 decoration: BoxDecoration(
@@ -94,28 +108,82 @@ class _AccountWidgetState extends State<AccountWidget> {
                           mainAxisSize: MainAxisSize.max,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                AuthUserStreamWidget(
-                                  builder: (context) => Container(
-                                    width: 100,
-                                    height: 100,
-                                    clipBehavior: Clip.antiAlias,
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                    ),
-                                    child: Image.network(
-                                      valueOrDefault<String>(
-                                        currentUserPhoto,
-                                        'https://firebasestorage.googleapis.com/v0/b/lifeguard-kh.appspot.com/o/users%2FfOoyIyKaBkd8vfAdrZ7C12xEIvx2%2Fuploads%2Fimage.webp?alt=media&token=de324c7a-d11c-4471-a58d-d6399e9e52fb',
+                            AuthUserStreamWidget(
+                              builder: (context) => InkWell(
+                                onTap: () async {
+                                  final selectedMedia =
+                                      await selectMediaWithSourceBottomSheet(
+                                    context: context,
+                                    maxWidth: 1000.00,
+                                    maxHeight: 1000.00,
+                                    allowPhoto: true,
+                                  );
+                                  if (selectedMedia != null &&
+                                      selectedMedia.every((m) =>
+                                          validateFileFormat(
+                                              m.storagePath, context))) {
+                                    setState(() => isMediaUploading = true);
+                                    var downloadUrls = <String>[];
+                                    try {
+                                      downloadUrls = (await Future.wait(
+                                        selectedMedia.map(
+                                          (m) async => await uploadData(
+                                              m.storagePath, m.bytes),
+                                        ),
+                                      ))
+                                          .where((u) => u != null)
+                                          .map((u) => u!)
+                                          .toList();
+                                    } finally {
+                                      isMediaUploading = false;
+                                    }
+                                    if (downloadUrls.length ==
+                                        selectedMedia.length) {
+                                      setState(() =>
+                                          uploadedFileUrl = downloadUrls.first);
+                                    } else {
+                                      setState(() {});
+                                      return;
+                                    }
+                                  }
+
+                                  final usersUpdateData = createUsersRecordData(
+                                    photoUrl: uploadedFileUrl,
+                                  );
+                                  await currentUserReference!
+                                      .update(usersUpdateData);
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(
+                                        'Profielfoto is veranderd',
+                                        style: TextStyle(
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryText,
+                                        ),
                                       ),
-                                      fit: BoxFit.cover,
+                                      duration: Duration(milliseconds: 4000),
+                                      backgroundColor:
+                                          FlutterFlowTheme.of(context)
+                                              .secondaryColor,
                                     ),
+                                  );
+                                },
+                                child: Container(
+                                  width: 100,
+                                  height: 100,
+                                  clipBehavior: Clip.antiAlias,
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                  ),
+                                  child: Image.network(
+                                    valueOrDefault<String>(
+                                      currentUserPhoto,
+                                      'https://firebasestorage.googleapis.com/v0/b/lifeguard-kh.appspot.com/o/blank-profile-picture-973460_1280.webp?alt=media&token=768f889d-bc72-4d62-91ab-ab4d43752d44',
+                                    ),
+                                    fit: BoxFit.cover,
                                   ),
                                 ),
-                              ],
+                              ),
                             ),
                             Padding(
                               padding:
@@ -155,36 +223,6 @@ class _AccountWidgetState extends State<AccountWidget> {
                                         FlutterFlowTheme.of(context).bodyText1,
                                   ),
                                 ],
-                              ),
-                            ),
-                            Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(0, 12, 0, 12),
-                              child: FFButtonWidget(
-                                onPressed: () async {
-                                  context.pushNamed('ChangeInformation');
-                                },
-                                text: 'Informatie veranderen',
-                                options: FFButtonOptions(
-                                  width: double.infinity,
-                                  height: 40,
-                                  color: FlutterFlowTheme.of(context)
-                                      .primaryBackground,
-                                  textStyle: FlutterFlowTheme.of(context)
-                                      .subtitle2
-                                      .override(
-                                        fontFamily: 'SFPro',
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryColor,
-                                        useGoogleFonts: false,
-                                      ),
-                                  borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryColor,
-                                    width: 1.5,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
                               ),
                             ),
                           ],

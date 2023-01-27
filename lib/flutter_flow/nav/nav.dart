@@ -170,14 +170,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               name: 'LeavePreferences',
               path: 'leavePreferences',
               requireAuth: true,
-              builder: (context, params) => LeavePreferencesWidget(
-                post: params.getParam('post', ParamType.String),
-              ),
-            ),
-            FFRoute(
-              name: 'ChangeInformation',
-              path: 'changeInformation',
-              builder: (context, params) => ChangeInformationWidget(),
+              builder: (context, params) => LeavePreferencesWidget(),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ).toRoute(appStateNotifier),

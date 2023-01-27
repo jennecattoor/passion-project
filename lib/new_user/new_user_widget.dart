@@ -67,7 +67,7 @@ class _NewUserWidgetState extends State<NewUserWidget> {
           children: [
             Container(
               width: MediaQuery.of(context).size.width,
-              height: 200,
+              height: 250,
               decoration: BoxDecoration(
                 color: FlutterFlowTheme.of(context).primaryColor,
                 borderRadius: BorderRadius.only(
@@ -78,7 +78,7 @@ class _NewUserWidgetState extends State<NewUserWidget> {
                 ),
               ),
               child: Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(12, 0, 12, 40),
+                padding: EdgeInsetsDirectional.fromSTEB(12, 48, 12, 50),
                 child: SvgPicture.asset(
                   'assets/images/logo.svg',
                   width: 100,
@@ -88,7 +88,7 @@ class _NewUserWidgetState extends State<NewUserWidget> {
               ),
             ),
             Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(12, 160, 12, 12),
+              padding: EdgeInsetsDirectional.fromSTEB(12, 200, 12, 12),
               child: Container(
                 width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
@@ -131,14 +131,6 @@ class _NewUserWidgetState extends State<NewUserWidget> {
                                 decoration: InputDecoration(
                                   labelText: 'Naam',
                                   hintText: 'Naam',
-                                  hintStyle: FlutterFlowTheme.of(context)
-                                      .bodyText1
-                                      .override(
-                                        fontFamily: 'SFPro',
-                                        color: FlutterFlowTheme.of(context)
-                                            .alternate,
-                                        useGoogleFonts: false,
-                                      ),
                                   enabledBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
                                       color: FlutterFlowTheme.of(context)
@@ -157,14 +149,16 @@ class _NewUserWidgetState extends State<NewUserWidget> {
                                   ),
                                   errorBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: Color(0x00000000),
+                                      color: FlutterFlowTheme.of(context)
+                                          .tertiaryColor,
                                       width: 1.5,
                                     ),
                                     borderRadius: BorderRadius.circular(10),
                                   ),
                                   focusedErrorBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: Color(0x00000000),
+                                      color: FlutterFlowTheme.of(context)
+                                          .tertiaryColor,
                                       width: 1.5,
                                     ),
                                     borderRadius: BorderRadius.circular(10),
@@ -180,7 +174,7 @@ class _NewUserWidgetState extends State<NewUserWidget> {
                                     ),
                                 validator: (val) {
                                   if (val == null || val.isEmpty) {
-                                    return 'Field is required';
+                                    return 'Naam invullen is verplicht';
                                   }
 
                                   return null;
@@ -197,14 +191,6 @@ class _NewUserWidgetState extends State<NewUserWidget> {
                                 decoration: InputDecoration(
                                   labelText: 'Email',
                                   hintText: 'Email',
-                                  hintStyle: FlutterFlowTheme.of(context)
-                                      .bodyText1
-                                      .override(
-                                        fontFamily: 'SFPro',
-                                        color: FlutterFlowTheme.of(context)
-                                            .alternate,
-                                        useGoogleFonts: false,
-                                      ),
                                   enabledBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
                                       color: FlutterFlowTheme.of(context)
@@ -223,14 +209,16 @@ class _NewUserWidgetState extends State<NewUserWidget> {
                                   ),
                                   errorBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: Color(0x00000000),
+                                      color: FlutterFlowTheme.of(context)
+                                          .tertiaryColor,
                                       width: 1.5,
                                     ),
                                     borderRadius: BorderRadius.circular(10),
                                   ),
                                   focusedErrorBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: Color(0x00000000),
+                                      color: FlutterFlowTheme.of(context)
+                                          .tertiaryColor,
                                       width: 1.5,
                                     ),
                                     borderRadius: BorderRadius.circular(10),
@@ -247,7 +235,7 @@ class _NewUserWidgetState extends State<NewUserWidget> {
                                 keyboardType: TextInputType.emailAddress,
                                 validator: (val) {
                                   if (val == null || val.isEmpty) {
-                                    return 'Field is required';
+                                    return 'Email invullen is verplicht';
                                   }
 
                                   return null;
@@ -264,14 +252,6 @@ class _NewUserWidgetState extends State<NewUserWidget> {
                                 decoration: InputDecoration(
                                   labelText: 'Wachtwoord',
                                   hintText: 'Wachtwoord',
-                                  hintStyle: FlutterFlowTheme.of(context)
-                                      .bodyText1
-                                      .override(
-                                        fontFamily: 'SFPro',
-                                        color: FlutterFlowTheme.of(context)
-                                            .alternate,
-                                        useGoogleFonts: false,
-                                      ),
                                   enabledBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
                                       color: FlutterFlowTheme.of(context)
@@ -290,14 +270,16 @@ class _NewUserWidgetState extends State<NewUserWidget> {
                                   ),
                                   errorBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: Color(0x00000000),
+                                      color: FlutterFlowTheme.of(context)
+                                          .tertiaryColor,
                                       width: 1.5,
                                     ),
                                     borderRadius: BorderRadius.circular(10),
                                   ),
                                   focusedErrorBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: Color(0x00000000),
+                                      color: FlutterFlowTheme.of(context)
+                                          .tertiaryColor,
                                       width: 1.5,
                                     ),
                                     borderRadius: BorderRadius.circular(10),
@@ -329,7 +311,7 @@ class _NewUserWidgetState extends State<NewUserWidget> {
                                 keyboardType: TextInputType.visiblePassword,
                                 validator: (val) {
                                   if (val == null || val.isEmpty) {
-                                    return 'Field is required';
+                                    return 'Wachtwoord invullen is verplicht';
                                   }
 
                                   return null;
@@ -346,14 +328,6 @@ class _NewUserWidgetState extends State<NewUserWidget> {
                                 decoration: InputDecoration(
                                   labelText: 'Herhaal Wachtwoord',
                                   hintText: 'Herhaal Wachtwoord',
-                                  hintStyle: FlutterFlowTheme.of(context)
-                                      .bodyText1
-                                      .override(
-                                        fontFamily: 'SFPro',
-                                        color: FlutterFlowTheme.of(context)
-                                            .alternate,
-                                        useGoogleFonts: false,
-                                      ),
                                   enabledBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
                                       color: FlutterFlowTheme.of(context)
@@ -372,14 +346,16 @@ class _NewUserWidgetState extends State<NewUserWidget> {
                                   ),
                                   errorBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: Color(0x00000000),
+                                      color: FlutterFlowTheme.of(context)
+                                          .tertiaryColor,
                                       width: 1.5,
                                     ),
                                     borderRadius: BorderRadius.circular(10),
                                   ),
                                   focusedErrorBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: Color(0x00000000),
+                                      color: FlutterFlowTheme.of(context)
+                                          .tertiaryColor,
                                       width: 1.5,
                                     ),
                                     borderRadius: BorderRadius.circular(10),
@@ -411,7 +387,7 @@ class _NewUserWidgetState extends State<NewUserWidget> {
                                 keyboardType: TextInputType.visiblePassword,
                                 validator: (val) {
                                   if (val == null || val.isEmpty) {
-                                    return 'Field is required';
+                                    return 'Wachtwoord herhalen is verplicht';
                                   }
 
                                   return null;
@@ -476,6 +452,11 @@ class _NewUserWidgetState extends State<NewUserWidget> {
                                   EdgeInsetsDirectional.fromSTEB(0, 12, 0, 8),
                               child: FFButtonWidget(
                                 onPressed: () async {
+                                  if (formKey.currentState == null ||
+                                      !formKey.currentState!.validate()) {
+                                    return;
+                                  }
+
                                   GoRouter.of(context).prepareAuthEvent();
                                   if (textFieldPasswordController?.text !=
                                       textFieldPasswordRepeatController?.text) {
@@ -533,8 +514,8 @@ class _NewUserWidgetState extends State<NewUserWidget> {
                               padding:
                                   EdgeInsetsDirectional.fromSTEB(0, 12, 0, 12),
                               child: FFButtonWidget(
-                                onPressed: () {
-                                  print('Button pressed ...');
+                                onPressed: () async {
+                                  context.pushNamed('Login');
                                 },
                                 text: 'Ik heb al een account',
                                 options: FFButtonOptions(

@@ -59,7 +59,7 @@ class _LostChildReportWidgetState extends State<LostChildReportWidget> {
           children: [
             Container(
               width: double.infinity,
-              height: 150,
+              height: 170,
               decoration: BoxDecoration(
                 color: FlutterFlowTheme.of(context).primaryColor,
                 borderRadius: BorderRadius.only(
@@ -70,7 +70,7 @@ class _LostChildReportWidgetState extends State<LostChildReportWidget> {
                 ),
               ),
               child: Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(16, 24, 16, 40),
+                padding: EdgeInsetsDirectional.fromSTEB(12, 48, 12, 50),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
                   children: [
@@ -97,334 +97,412 @@ class _LostChildReportWidgetState extends State<LostChildReportWidget> {
               ),
             ),
             Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(12, 110, 12, 12),
-              child: Container(
-                width: double.infinity,
-                height: double.infinity,
-                decoration: BoxDecoration(
-                  color: FlutterFlowTheme.of(context).secondaryBackground,
-                  boxShadow: [
-                    BoxShadow(
-                      blurRadius: 4,
-                      color: Color(0x33000000),
-                      offset: Offset(0, 0),
-                    )
-                  ],
-                  borderRadius: BorderRadius.circular(24),
-                ),
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(12, 24, 0, 0),
-                      child: Text(
-                        'Gelieve een persoon pas als verloren te melden indien deze al langer vermist is dan  15 minuten.',
-                        style: FlutterFlowTheme.of(context).bodyText1,
+              padding: EdgeInsetsDirectional.fromSTEB(12, 120, 12, 12),
+              child: AuthUserStreamWidget(
+                builder: (context) => StreamBuilder<PostsRecord>(
+                  stream: PostsRecord.getDocument(
+                      currentUserDocument!.lifeguardPost!),
+                  builder: (context, snapshot) {
+                    // Customize what your widget looks like when it's loading.
+                    if (!snapshot.hasData) {
+                      return Center(
+                        child: SizedBox(
+                          width: 50,
+                          height: 50,
+                          child: SpinKitRing(
+                            color: FlutterFlowTheme.of(context).primaryColor,
+                            size: 50,
+                          ),
+                        ),
+                      );
+                    }
+                    final whiteSectionPostsRecord = snapshot.data!;
+                    return Container(
+                      width: double.infinity,
+                      height: double.infinity,
+                      decoration: BoxDecoration(
+                        color: FlutterFlowTheme.of(context).secondaryBackground,
+                        boxShadow: [
+                          BoxShadow(
+                            blurRadius: 4,
+                            color: Color(0x33000000),
+                            offset: Offset(0, 0),
+                          )
+                        ],
+                        borderRadius: BorderRadius.circular(24),
                       ),
-                    ),
-                    Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(12, 12, 12, 24),
-                      child: Form(
-                        key: formKey,
-                        autovalidateMode: AutovalidateMode.disabled,
+                      child: Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(12, 24, 12, 24),
                         child: Column(
                           mainAxisSize: MainAxisSize.max,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(0, 12, 0, 12),
-                              child: FlutterFlowDropDown<String>(
-                                options: [
-                                  'Post 1A',
-                                  'Post 1B',
-                                  'Post 2',
-                                  'Post 3',
-                                  'Post 4',
-                                  'Post 5'
-                                ],
-                                onChanged: (val) =>
-                                    setState(() => dropdownPostValue = val),
-                                width: double.infinity,
-                                height: 50,
-                                textStyle: FlutterFlowTheme.of(context)
-                                    .bodyText1
-                                    .override(
-                                      fontFamily: 'SFPro',
-                                      color: Colors.black,
-                                      useGoogleFonts: false,
-                                    ),
-                                hintText: 'Selecteer post',
-                                fillColor: Colors.white,
-                                elevation: 2,
-                                borderColor:
-                                    FlutterFlowTheme.of(context).primaryText,
-                                borderWidth: 1.5,
-                                borderRadius: 10,
-                                margin: EdgeInsetsDirectional.fromSTEB(
-                                    12, 4, 12, 4),
-                                hidesUnderline: true,
-                              ),
+                            Text(
+                              'Gelieve een persoon pas als verloren te melden indien deze al langer vermist is dan  15 minuten.',
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyText1
+                                  .override(
+                                    fontFamily: 'SFPro',
+                                    fontSize: 18,
+                                    useGoogleFonts: false,
+                                  ),
                             ),
                             Padding(
                               padding:
-                                  EdgeInsetsDirectional.fromSTEB(0, 12, 0, 12),
-                              child: FlutterFlowDropDown<String>(
-                                options: [
-                                  'Kind zoekt ouders',
-                                  'Ouders zoeken kind',
-                                  'Ander geval'
-                                ],
-                                onChanged: (val) =>
-                                    setState(() => dropdonwnKindValue = val),
-                                width: double.infinity,
-                                height: 50,
-                                textStyle: FlutterFlowTheme.of(context)
-                                    .bodyText1
-                                    .override(
-                                      fontFamily: 'SFPro',
-                                      color: Colors.black,
-                                      useGoogleFonts: false,
-                                    ),
-                                hintText: 'Selecteer soort geval',
-                                fillColor: Colors.white,
-                                elevation: 2,
-                                borderColor:
-                                    FlutterFlowTheme.of(context).primaryText,
-                                borderWidth: 1.5,
-                                borderRadius: 10,
-                                margin: EdgeInsetsDirectional.fromSTEB(
-                                    12, 4, 12, 4),
-                                hidesUnderline: true,
-                              ),
-                            ),
-                            Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(0, 12, 0, 12),
-                              child: TextFormField(
-                                controller: textFieldDescriptionController,
-                                autofocus: true,
-                                obscureText: false,
-                                decoration: InputDecoration(
-                                  labelText: 'Beschrijving kind',
-                                  hintText:
-                                      'Haarkleur, kledij, naam, laatst gezien...',
-                                  hintStyle: FlutterFlowTheme.of(context)
-                                      .bodyText2
-                                      .override(
-                                        fontFamily: 'SFPro',
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryText,
-                                        useGoogleFonts: false,
-                                      ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryText,
-                                      width: 1.5,
-                                    ),
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryText,
-                                      width: 1.5,
-                                    ),
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  errorBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context)
-                                          .tertiaryColor,
-                                      width: 1.5,
-                                    ),
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  focusedErrorBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context)
-                                          .tertiaryColor,
-                                      width: 1.5,
-                                    ),
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  filled: true,
-                                  fillColor: FlutterFlowTheme.of(context)
-                                      .primaryBackground,
-                                ),
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyText2
-                                    .override(
-                                      fontFamily: 'SFPro',
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryText,
-                                      useGoogleFonts: false,
-                                    ),
-                                maxLines: 6,
-                                validator: (val) {
-                                  if (val == null || val.isEmpty) {
-                                    return 'Field is required';
-                                  }
-
-                                  return null;
-                                },
-                              ),
-                            ),
-                            Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(0, 12, 0, 12),
-                              child: InkWell(
-                                onTap: () async {
-                                  final selectedMedia =
-                                      await selectMediaWithSourceBottomSheet(
-                                    context: context,
-                                    allowPhoto: true,
-                                    pickerFontFamily: 'Roboto',
-                                  );
-                                  if (selectedMedia != null &&
-                                      selectedMedia.every((m) =>
-                                          validateFileFormat(
-                                              m.storagePath, context))) {
-                                    setState(() => isMediaUploading = true);
-                                    var downloadUrls = <String>[];
-                                    try {
-                                      downloadUrls = (await Future.wait(
-                                        selectedMedia.map(
-                                          (m) async => await uploadData(
-                                              m.storagePath, m.bytes),
+                                  EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
+                              child: Form(
+                                key: formKey,
+                                autovalidateMode: AutovalidateMode.disabled,
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0, 12, 0, 12),
+                                      child: StreamBuilder<List<PostsRecord>>(
+                                        stream: queryPostsRecord(
+                                          queryBuilder: (postsRecord) =>
+                                              postsRecord
+                                                  .orderBy('post_number'),
+                                          limit: 12,
                                         ),
-                                      ))
-                                          .where((u) => u != null)
-                                          .map((u) => u!)
-                                          .toList();
-                                    } finally {
-                                      isMediaUploading = false;
-                                    }
-                                    if (downloadUrls.length ==
-                                        selectedMedia.length) {
-                                      setState(() =>
-                                          uploadedFileUrl = downloadUrls.first);
-                                    } else {
-                                      setState(() {});
-                                      return;
-                                    }
-                                  }
-                                },
-                                child: Text(
-                                  'Foto toevoegen',
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyText1
-                                      .override(
-                                        fontFamily: 'SFPro',
-                                        decoration: TextDecoration.underline,
-                                        useGoogleFonts: false,
+                                        builder: (context, snapshot) {
+                                          // Customize what your widget looks like when it's loading.
+                                          if (!snapshot.hasData) {
+                                            return Center(
+                                              child: SizedBox(
+                                                width: 50,
+                                                height: 50,
+                                                child: SpinKitRing(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primaryColor,
+                                                  size: 50,
+                                                ),
+                                              ),
+                                            );
+                                          }
+                                          List<PostsRecord>
+                                              dropdownPostPostsRecordList =
+                                              snapshot.data!;
+                                          return FlutterFlowDropDown<String>(
+                                            initialOption: dropdownPostValue ??=
+                                                whiteSectionPostsRecord
+                                                    .postNumber
+                                                    ?.toString(),
+                                            options: dropdownPostPostsRecordList
+                                                .map((e) => e.postName)
+                                                .withoutNulls
+                                                .toList()
+                                                .toList(),
+                                            onChanged: (val) => setState(
+                                                () => dropdownPostValue = val),
+                                            width: double.infinity,
+                                            height: 50,
+                                            textStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyText1
+                                                    .override(
+                                                      fontFamily: 'SFPro',
+                                                      color: Colors.black,
+                                                      useGoogleFonts: false,
+                                                    ),
+                                            hintText: 'Selecteer post',
+                                            fillColor: Colors.white,
+                                            elevation: 2,
+                                            borderColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .primaryText,
+                                            borderWidth: 1.5,
+                                            borderRadius: 10,
+                                            margin:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    12, 4, 12, 4),
+                                            hidesUnderline: true,
+                                          );
+                                        },
                                       ),
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(0, 12, 0, 8),
-                              child: FFButtonWidget(
-                                onPressed: () async {
-                                  if (formKey.currentState == null ||
-                                      !formKey.currentState!.validate()) {
-                                    return;
-                                  }
-
-                                  if (dropdownPostValue == null) {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
-                                        content: Text(
-                                          'Gelieve een post te selecteren',
-                                          style: TextStyle(),
-                                        ),
-                                        duration: Duration(milliseconds: 4000),
-                                        backgroundColor:
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0, 12, 0, 12),
+                                      child: FlutterFlowDropDown<String>(
+                                        options: [
+                                          'Kind zoekt ouders',
+                                          'Ouders zoeken kind',
+                                          'Ander geval'
+                                        ],
+                                        onChanged: (val) => setState(
+                                            () => dropdonwnKindValue = val),
+                                        width: double.infinity,
+                                        height: 50,
+                                        textStyle: FlutterFlowTheme.of(context)
+                                            .bodyText1
+                                            .override(
+                                              fontFamily: 'SFPro',
+                                              color: Colors.black,
+                                              useGoogleFonts: false,
+                                            ),
+                                        hintText: 'Selecteer soort geval',
+                                        fillColor: Colors.white,
+                                        elevation: 2,
+                                        borderColor:
                                             FlutterFlowTheme.of(context)
-                                                .tertiaryColor,
+                                                .primaryText,
+                                        borderWidth: 1.5,
+                                        borderRadius: 10,
+                                        margin: EdgeInsetsDirectional.fromSTEB(
+                                            12, 4, 12, 4),
+                                        hidesUnderline: true,
                                       ),
-                                    );
-                                    return;
-                                  }
-                                  if (dropdonwnKindValue == null) {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
-                                        content: Text(
-                                          'Gelieve een soort geval te selecteren',
-                                          style: TextStyle(),
-                                        ),
-                                        duration: Duration(milliseconds: 4000),
-                                        backgroundColor: Color(0x00000000),
-                                      ),
-                                    );
-                                    return;
-                                  }
-
-                                  if (uploadedFileUrl == null ||
-                                      uploadedFileUrl.isEmpty) {
-                                    return;
-                                  }
-
-                                  final lostChildsCreateData = {
-                                    ...createLostChildsRecordData(
-                                      childDescription:
-                                          textFieldDescriptionController!.text,
-                                      childImage: uploadedFileUrl,
-                                      createdUser: currentUserDisplayName,
-                                      childPost: dropdownPostValue,
                                     ),
-                                    'created_time':
-                                        FieldValue.serverTimestamp(),
-                                  };
-                                  await LostChildsRecord.collection
-                                      .doc()
-                                      .set(lostChildsCreateData);
-                                  context.pop();
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text(
-                                        'Succesvol verloren persoon gemeld',
-                                        style: TextStyle(
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0, 12, 0, 12),
+                                      child: TextFormField(
+                                        controller:
+                                            textFieldDescriptionController,
+                                        autofocus: true,
+                                        obscureText: false,
+                                        decoration: InputDecoration(
+                                          labelText: 'Beschrijving kind',
+                                          hintText:
+                                              'Haarkleur, kledij, naam, laatst gezien...',
+                                          enabledBorder: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryText,
+                                              width: 1.5,
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                          ),
+                                          focusedBorder: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryText,
+                                              width: 1.5,
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                          ),
+                                          errorBorder: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .tertiaryColor,
+                                              width: 1.5,
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                          ),
+                                          focusedErrorBorder:
+                                              OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .tertiaryColor,
+                                              width: 1.5,
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                          ),
+                                          filled: true,
+                                          fillColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .primaryBackground,
+                                        ),
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyText2
+                                            .override(
+                                              fontFamily: 'SFPro',
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryText,
+                                              useGoogleFonts: false,
+                                            ),
+                                        maxLines: 6,
+                                        validator: (val) {
+                                          if (val == null || val.isEmpty) {
+                                            return 'Beschrijving is verplicht';
+                                          }
+
+                                          return null;
+                                        },
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0, 12, 0, 12),
+                                      child: InkWell(
+                                        onTap: () async {
+                                          final selectedMedia =
+                                              await selectMediaWithSourceBottomSheet(
+                                            context: context,
+                                            allowPhoto: true,
+                                            pickerFontFamily: 'Roboto',
+                                          );
+                                          if (selectedMedia != null &&
+                                              selectedMedia.every((m) =>
+                                                  validateFileFormat(
+                                                      m.storagePath,
+                                                      context))) {
+                                            setState(
+                                                () => isMediaUploading = true);
+                                            var downloadUrls = <String>[];
+                                            try {
+                                              downloadUrls = (await Future.wait(
+                                                selectedMedia.map(
+                                                  (m) async => await uploadData(
+                                                      m.storagePath, m.bytes),
+                                                ),
+                                              ))
+                                                  .where((u) => u != null)
+                                                  .map((u) => u!)
+                                                  .toList();
+                                            } finally {
+                                              isMediaUploading = false;
+                                            }
+                                            if (downloadUrls.length ==
+                                                selectedMedia.length) {
+                                              setState(() => uploadedFileUrl =
+                                                  downloadUrls.first);
+                                            } else {
+                                              setState(() {});
+                                              return;
+                                            }
+                                          }
+                                        },
+                                        child: Text(
+                                          'Foto toevoegen (optioneel)',
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyText1
+                                              .override(
+                                                fontFamily: 'SFPro',
+                                                decoration:
+                                                    TextDecoration.underline,
+                                                useGoogleFonts: false,
+                                              ),
+                                        ),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0, 12, 0, 8),
+                                      child: FFButtonWidget(
+                                        onPressed: () async {
+                                          if (formKey.currentState == null ||
+                                              !formKey.currentState!
+                                                  .validate()) {
+                                            return;
+                                          }
+
+                                          if (dropdownPostValue == null) {
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(
+                                              SnackBar(
+                                                content: Text(
+                                                  'Gelieve een post te selecteren',
+                                                  style: TextStyle(),
+                                                ),
+                                                duration: Duration(
+                                                    milliseconds: 4000),
+                                                backgroundColor:
+                                                    FlutterFlowTheme.of(context)
+                                                        .tertiaryColor,
+                                              ),
+                                            );
+                                            return;
+                                          }
+                                          if (dropdonwnKindValue == null) {
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(
+                                              SnackBar(
+                                                content: Text(
+                                                  'Gelieve een soort geval te selecteren',
+                                                  style: TextStyle(),
+                                                ),
+                                                duration: Duration(
+                                                    milliseconds: 4000),
+                                                backgroundColor:
+                                                    FlutterFlowTheme.of(context)
+                                                        .tertiaryColor,
+                                              ),
+                                            );
+                                            return;
+                                          }
+
+                                          final lostChildsCreateData = {
+                                            ...createLostChildsRecordData(
+                                              childDescription:
+                                                  textFieldDescriptionController!
+                                                      .text,
+                                              childImage: uploadedFileUrl,
+                                              createdUser:
+                                                  currentUserDisplayName,
+                                              childPost: dropdownPostValue,
+                                            ),
+                                            'created_time':
+                                                FieldValue.serverTimestamp(),
+                                          };
+                                          await LostChildsRecord.collection
+                                              .doc()
+                                              .set(lostChildsCreateData);
+                                          context.pop();
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            SnackBar(
+                                              content: Text(
+                                                'Succesvol verloren persoon gemeld',
+                                                style: TextStyle(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primaryText,
+                                                ),
+                                              ),
+                                              duration:
+                                                  Duration(milliseconds: 4000),
+                                              backgroundColor:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondaryColor,
+                                            ),
+                                          );
+                                        },
+                                        text: 'Verloren persoon melden',
+                                        options: FFButtonOptions(
+                                          width: double.infinity,
+                                          height: 40,
                                           color: FlutterFlowTheme.of(context)
-                                              .primaryText,
+                                              .primaryColor,
+                                          textStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .subtitle2
+                                                  .override(
+                                                    fontFamily: 'SFPro',
+                                                    color: Colors.white,
+                                                    useGoogleFonts: false,
+                                                  ),
+                                          borderSide: BorderSide(
+                                            color: Colors.transparent,
+                                            width: 1,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(8),
                                         ),
                                       ),
-                                      duration: Duration(milliseconds: 4000),
-                                      backgroundColor:
-                                          FlutterFlowTheme.of(context)
-                                              .secondaryColor,
                                     ),
-                                  );
-                                },
-                                text: 'Verloren persoon melden',
-                                options: FFButtonOptions(
-                                  width: double.infinity,
-                                  height: 40,
-                                  color:
-                                      FlutterFlowTheme.of(context).primaryColor,
-                                  textStyle: FlutterFlowTheme.of(context)
-                                      .subtitle2
-                                      .override(
-                                        fontFamily: 'SFPro',
-                                        color: Colors.white,
-                                        useGoogleFonts: false,
-                                      ),
-                                  borderSide: BorderSide(
-                                    color: Colors.transparent,
-                                    width: 1,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8),
+                                  ],
                                 ),
                               ),
                             ),
                           ],
                         ),
                       ),
-                    ),
-                  ],
+                    );
+                  },
                 ),
               ),
             ),

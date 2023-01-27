@@ -15,13 +15,17 @@ abstract class PostsRecord implements Built<PostsRecord, PostsRecordBuilder> {
   @BuiltValueField(wireName: 'schedule_made')
   bool? get scheduleMade;
 
+  @BuiltValueField(wireName: 'post_number')
+  double? get postNumber;
+
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
   DocumentReference get reference => ffRef!;
 
   static void _initializeBuilder(PostsRecordBuilder builder) => builder
     ..postName = ''
-    ..scheduleMade = false;
+    ..scheduleMade = false
+    ..postNumber = 0.0;
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('posts');
@@ -47,13 +51,15 @@ abstract class PostsRecord implements Built<PostsRecord, PostsRecordBuilder> {
 Map<String, dynamic> createPostsRecordData({
   String? postName,
   bool? scheduleMade,
+  double? postNumber,
 }) {
   final firestoreData = serializers.toFirestore(
     PostsRecord.serializer,
     PostsRecord(
       (p) => p
         ..postName = postName
-        ..scheduleMade = scheduleMade,
+        ..scheduleMade = scheduleMade
+        ..postNumber = postNumber,
     ),
   );
 

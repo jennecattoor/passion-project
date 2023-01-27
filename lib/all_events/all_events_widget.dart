@@ -45,7 +45,7 @@ class _AllEventsWidgetState extends State<AllEventsWidget> {
           children: [
             Container(
               width: double.infinity,
-              height: 150,
+              height: 170,
               decoration: BoxDecoration(
                 color: FlutterFlowTheme.of(context).primaryColor,
                 borderRadius: BorderRadius.only(
@@ -56,7 +56,7 @@ class _AllEventsWidgetState extends State<AllEventsWidget> {
                 ),
               ),
               child: Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(16, 24, 16, 40),
+                padding: EdgeInsetsDirectional.fromSTEB(12, 48, 12, 50),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
                   children: [
@@ -83,7 +83,7 @@ class _AllEventsWidgetState extends State<AllEventsWidget> {
               ),
             ),
             Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(12, 110, 12, 12),
+              padding: EdgeInsetsDirectional.fromSTEB(12, 120, 12, 12),
               child: Container(
                 width: double.infinity,
                 height: double.infinity,
@@ -109,81 +109,75 @@ class _AllEventsWidgetState extends State<AllEventsWidget> {
                           color:
                               FlutterFlowTheme.of(context).secondaryBackground,
                         ),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.max,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            StreamBuilder<List<EventsRecord>>(
-                              stream: queryEventsRecord(
-                                queryBuilder: (eventsRecord) =>
-                                    eventsRecord.orderBy('event_date'),
-                              ),
-                              builder: (context, snapshot) {
-                                // Customize what your widget looks like when it's loading.
-                                if (!snapshot.hasData) {
-                                  return Center(
-                                    child: SizedBox(
-                                      width: 50,
-                                      height: 50,
-                                      child: SpinKitRing(
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryColor,
-                                        size: 50,
-                                      ),
-                                    ),
-                                  );
-                                }
-                                List<EventsRecord> listViewEventsRecordList =
-                                    snapshot.data!;
-                                return ListView.builder(
-                                  padding: EdgeInsets.zero,
-                                  shrinkWrap: true,
-                                  scrollDirection: Axis.vertical,
-                                  itemCount: listViewEventsRecordList.length,
-                                  itemBuilder: (context, listViewIndex) {
-                                    final listViewEventsRecord =
-                                        listViewEventsRecordList[listViewIndex];
-                                    return InkWell(
-                                      onTap: () async {
-                                        context.pushNamed(
-                                          'EventDetails',
-                                          queryParams: {
-                                            'events': serializeParam(
-                                              listViewEventsRecord.reference,
-                                              ParamType.DocumentReference,
-                                            ),
-                                          }.withoutNulls,
-                                        );
-                                      },
-                                      child: Card(
-                                        clipBehavior:
-                                            Clip.antiAliasWithSaveLayer,
-                                        color: FlutterFlowTheme.of(context)
-                                            .secondaryBackground,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(16),
+                        child: StreamBuilder<List<EventsRecord>>(
+                          stream: queryEventsRecord(
+                            queryBuilder: (eventsRecord) =>
+                                eventsRecord.orderBy('event_date'),
+                          ),
+                          builder: (context, snapshot) {
+                            // Customize what your widget looks like when it's loading.
+                            if (!snapshot.hasData) {
+                              return Center(
+                                child: SizedBox(
+                                  width: 50,
+                                  height: 50,
+                                  child: SpinKitRing(
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryColor,
+                                    size: 50,
+                                  ),
+                                ),
+                              );
+                            }
+                            List<EventsRecord> columnEventsRecordList =
+                                snapshot.data!;
+                            return Column(
+                              mainAxisSize: MainAxisSize.max,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: List.generate(
+                                  columnEventsRecordList.length, (columnIndex) {
+                                final columnEventsRecord =
+                                    columnEventsRecordList[columnIndex];
+                                return InkWell(
+                                  onTap: () async {
+                                    context.pushNamed(
+                                      'EventDetails',
+                                      queryParams: {
+                                        'events': serializeParam(
+                                          columnEventsRecord.reference,
+                                          ParamType.DocumentReference,
                                         ),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: [
-                                            Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(12, 12, 0, 12),
-                                              child: Column(
-                                                mainAxisSize: MainAxisSize.max,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    listViewEventsRecord
-                                                        .eventCategory!,
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
+                                      }.withoutNulls,
+                                    );
+                                  },
+                                  child: Card(
+                                    clipBehavior: Clip.antiAliasWithSaveLayer,
+                                    color: FlutterFlowTheme.of(context)
+                                        .secondaryBackground,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(16),
+                                    ),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  12, 12, 0, 12),
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                columnEventsRecord
+                                                    .eventCategory!,
+                                                style:
+                                                    FlutterFlowTheme.of(context)
                                                         .bodyText1
                                                         .override(
                                                           fontFamily: 'SFPro',
@@ -192,74 +186,66 @@ class _AllEventsWidgetState extends State<AllEventsWidget> {
                                                               .primaryColor,
                                                           useGoogleFonts: false,
                                                         ),
-                                                  ),
-                                                  Padding(
-                                                    padding:
-                                                        EdgeInsetsDirectional
-                                                            .fromSTEB(
-                                                                0, 0, 0, 12),
-                                                    child: Text(
-                                                      listViewEventsRecord
-                                                          .eventName!,
-                                                      style:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .subtitle1,
-                                                    ),
-                                                  ),
-                                                  Text(
-                                                    dateTimeFormat(
-                                                      'd/M H:mm',
-                                                      listViewEventsRecord
-                                                          .eventDate!,
-                                                      locale:
-                                                          FFLocalizations.of(
-                                                                  context)
-                                                              .languageCode,
-                                                    ),
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyText1
-                                                        .override(
-                                                          fontFamily: 'SFPro',
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .alternate,
-                                                          useGoogleFonts: false,
-                                                        ),
-                                                  ),
-                                                  Text(
-                                                    listViewEventsRecord
-                                                        .eventLocation!,
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyText1
-                                                        .override(
-                                                          fontFamily: 'SFPro',
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .alternate,
-                                                          useGoogleFonts: false,
-                                                        ),
-                                                  ),
-                                                ],
                                               ),
-                                            ),
-                                            Image.network(
-                                              listViewEventsRecord.eventImage!,
-                                              width: 120,
-                                              height: 120,
-                                              fit: BoxFit.cover,
-                                            ),
-                                          ],
+                                              Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(0, 0, 0, 12),
+                                                child: Text(
+                                                  columnEventsRecord.eventName!,
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .subtitle1,
+                                                ),
+                                              ),
+                                              Text(
+                                                dateTimeFormat(
+                                                  'd/M H:mm',
+                                                  columnEventsRecord.eventDate!,
+                                                  locale: FFLocalizations.of(
+                                                          context)
+                                                      .languageCode,
+                                                ),
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyText1
+                                                        .override(
+                                                          fontFamily: 'SFPro',
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .alternate,
+                                                          useGoogleFonts: false,
+                                                        ),
+                                              ),
+                                              Text(
+                                                columnEventsRecord
+                                                    .eventLocation!,
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyText1
+                                                        .override(
+                                                          fontFamily: 'SFPro',
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .alternate,
+                                                          useGoogleFonts: false,
+                                                        ),
+                                              ),
+                                            ],
+                                          ),
                                         ),
-                                      ),
-                                    );
-                                  },
+                                        Image.network(
+                                          columnEventsRecord.eventImage!,
+                                          width: 120,
+                                          height: 120,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
                                 );
-                              },
-                            ),
-                          ],
+                              }),
+                            );
+                          },
                         ),
                       ),
                     ),

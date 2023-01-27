@@ -56,7 +56,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                 children: [
                   Container(
                     width: double.infinity,
-                    height: 150,
+                    height: 170,
                     decoration: BoxDecoration(
                       color: FlutterFlowTheme.of(context).primaryColor,
                       borderRadius: BorderRadius.only(
@@ -67,7 +67,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                       ),
                     ),
                     child: Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(12, 12, 12, 12),
+                      padding: EdgeInsetsDirectional.fromSTEB(12, 48, 12, 50),
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -93,7 +93,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(12, 110, 12, 0),
+                    padding: EdgeInsetsDirectional.fromSTEB(12, 120, 12, 0),
                     child: Container(
                       decoration: BoxDecoration(
                         color: FlutterFlowTheme.of(context).primaryBackground,
@@ -268,7 +268,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                 ],
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(12, 36, 12, 12),
+                padding: EdgeInsetsDirectional.fromSTEB(12, 24, 12, 24),
                 child: FutureBuilder<ApiCallResponse>(
                   future: WeerAPICall.call(),
                   builder: (context, snapshot) {
@@ -285,7 +285,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                         ),
                       );
                     }
-                    final weatherWeerAPIResponse = snapshot.data!;
+                    final sectionWeatherWeerAPIResponse = snapshot.data!;
                     return Container(
                       width: double.infinity,
                       decoration: BoxDecoration(
@@ -464,7 +464,8 @@ class _HomeWidgetState extends State<HomeWidget> {
                                         Text(
                                           valueOrDefault<String>(
                                             getJsonField(
-                                              weatherWeerAPIResponse.jsonBody,
+                                              sectionWeatherWeerAPIResponse
+                                                  .jsonBody,
                                               r'''$.current.temp_c''',
                                             ).toString(),
                                             'Kapot',
@@ -535,7 +536,8 @@ class _HomeWidgetState extends State<HomeWidget> {
                                         Text(
                                           valueOrDefault<String>(
                                             getJsonField(
-                                              weatherWeerAPIResponse.jsonBody,
+                                              sectionWeatherWeerAPIResponse
+                                                  .jsonBody,
                                               r'''$.current.wind_kph''',
                                             ).toString(),
                                             'Kapot',
@@ -582,7 +584,8 @@ class _HomeWidgetState extends State<HomeWidget> {
                                         Text(
                                           valueOrDefault<String>(
                                             getJsonField(
-                                              weatherWeerAPIResponse.jsonBody,
+                                              sectionWeatherWeerAPIResponse
+                                                  .jsonBody,
                                               r'''$.current.wind_dir''',
                                             ).toString(),
                                             'Kapot',
@@ -609,7 +612,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                 ),
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(12, 24, 24, 12),
+                padding: EdgeInsetsDirectional.fromSTEB(12, 12, 12, 12),
                 child: Container(
                   width: double.infinity,
                   decoration: BoxDecoration(
@@ -653,7 +656,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                         stream: queryEventsRecord(
                           queryBuilder: (eventsRecord) =>
                               eventsRecord.orderBy('event_date'),
-                          limit: 3,
+                          limit: 2,
                         ),
                         builder: (context, snapshot) {
                           // Customize what your widget looks like when it's loading.
@@ -670,16 +673,14 @@ class _HomeWidgetState extends State<HomeWidget> {
                               ),
                             );
                           }
-                          List<EventsRecord> listViewEventsRecordList =
+                          List<EventsRecord> columnEventsRecordList =
                               snapshot.data!;
-                          return ListView.builder(
-                            padding: EdgeInsets.zero,
-                            shrinkWrap: true,
-                            scrollDirection: Axis.vertical,
-                            itemCount: listViewEventsRecordList.length,
-                            itemBuilder: (context, listViewIndex) {
-                              final listViewEventsRecord =
-                                  listViewEventsRecordList[listViewIndex];
+                          return Column(
+                            mainAxisSize: MainAxisSize.max,
+                            children: List.generate(
+                                columnEventsRecordList.length, (columnIndex) {
+                              final columnEventsRecord =
+                                  columnEventsRecordList[columnIndex];
                               return Card(
                                 clipBehavior: Clip.antiAliasWithSaveLayer,
                                 color: FlutterFlowTheme.of(context)
@@ -693,7 +694,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                       'EventDetails',
                                       queryParams: {
                                         'events': serializeParam(
-                                          listViewEventsRecord.reference,
+                                          columnEventsRecord.reference,
                                           ParamType.DocumentReference,
                                         ),
                                       }.withoutNulls,
@@ -715,8 +716,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                               CrossAxisAlignment.start,
                                           children: [
                                             Text(
-                                              listViewEventsRecord
-                                                  .eventCategory!,
+                                              columnEventsRecord.eventCategory!,
                                               style:
                                                   FlutterFlowTheme.of(context)
                                                       .bodyText1
@@ -734,7 +734,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                               padding: EdgeInsetsDirectional
                                                   .fromSTEB(0, 0, 0, 12),
                                               child: Text(
-                                                listViewEventsRecord.eventName!,
+                                                columnEventsRecord.eventName!,
                                                 style:
                                                     FlutterFlowTheme.of(context)
                                                         .subtitle1,
@@ -743,7 +743,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                             Text(
                                               dateTimeFormat(
                                                 'd/M H:mm',
-                                                listViewEventsRecord.eventDate!,
+                                                columnEventsRecord.eventDate!,
                                                 locale:
                                                     FFLocalizations.of(context)
                                                         .languageCode,
@@ -761,8 +761,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                       ),
                                             ),
                                             Text(
-                                              listViewEventsRecord
-                                                  .eventLocation!,
+                                              columnEventsRecord.eventLocation!,
                                               style:
                                                   FlutterFlowTheme.of(context)
                                                       .bodyText1
@@ -779,7 +778,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                         ),
                                       ),
                                       Image.network(
-                                        listViewEventsRecord.eventImage!,
+                                        columnEventsRecord.eventImage!,
                                         width: 120,
                                         height: 120,
                                         fit: BoxFit.cover,
@@ -788,7 +787,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                   ),
                                 ),
                               );
-                            },
+                            }),
                           );
                         },
                       ),
@@ -835,170 +834,157 @@ class _HomeWidgetState extends State<HomeWidget> {
                           ),
                         ],
                       ),
-                      Expanded(
-                        child: StreamBuilder<List<LunchRecord>>(
-                          stream: queryLunchRecord(
-                            limit: 4,
-                          ),
-                          builder: (context, snapshot) {
-                            // Customize what your widget looks like when it's loading.
-                            if (!snapshot.hasData) {
-                              return Center(
-                                child: SizedBox(
-                                  width: 50,
-                                  height: 50,
-                                  child: SpinKitRing(
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryColor,
-                                    size: 50,
-                                  ),
+                      StreamBuilder<List<LunchRecord>>(
+                        stream: queryLunchRecord(
+                          limit: 4,
+                        ),
+                        builder: (context, snapshot) {
+                          // Customize what your widget looks like when it's loading.
+                          if (!snapshot.hasData) {
+                            return Center(
+                              child: SizedBox(
+                                width: 50,
+                                height: 50,
+                                child: SpinKitRing(
+                                  color:
+                                      FlutterFlowTheme.of(context).primaryColor,
+                                  size: 50,
                                 ),
-                              );
-                            }
-                            List<LunchRecord> lunchListLunchRecordList =
-                                snapshot.data!;
-                            return ListView.builder(
-                              padding: EdgeInsets.zero,
-                              shrinkWrap: true,
-                              scrollDirection: Axis.vertical,
-                              itemCount: lunchListLunchRecordList.length,
-                              itemBuilder: (context, lunchListIndex) {
-                                final lunchListLunchRecord =
-                                    lunchListLunchRecordList[lunchListIndex];
-                                return InkWell(
-                                  onTap: () async {
-                                    await Clipboard.setData(ClipboardData(
-                                        text: lunchListLunchRecord
-                                            .lunchAddress!));
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
-                                        content: Text(
-                                          'Adres gekopieerd',
-                                          style: TextStyle(
-                                            color: FlutterFlowTheme.of(context)
-                                                .primaryText,
-                                          ),
+                              ),
+                            );
+                          }
+                          List<LunchRecord> columnLunchRecordList =
+                              snapshot.data!;
+                          return Column(
+                            mainAxisSize: MainAxisSize.max,
+                            children: List.generate(
+                                columnLunchRecordList.length, (columnIndex) {
+                              final columnLunchRecord =
+                                  columnLunchRecordList[columnIndex];
+                              return InkWell(
+                                onTap: () async {
+                                  await Clipboard.setData(ClipboardData(
+                                      text: columnLunchRecord.lunchPhone!));
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(
+                                        'Telefoonnummer gekopieerd',
+                                        style: TextStyle(
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryText,
                                         ),
-                                        duration: Duration(milliseconds: 4000),
-                                        backgroundColor:
-                                            FlutterFlowTheme.of(context)
-                                                .secondaryColor,
                                       ),
-                                    );
-                                  },
-                                  child: Card(
-                                    clipBehavior: Clip.antiAliasWithSaveLayer,
-                                    color: FlutterFlowTheme.of(context)
-                                        .secondaryBackground,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(16),
+                                      duration: Duration(milliseconds: 4000),
+                                      backgroundColor:
+                                          FlutterFlowTheme.of(context)
+                                              .secondaryColor,
                                     ),
-                                    child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          12, 12, 12, 12),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Column(
-                                            mainAxisSize: MainAxisSize.max,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                lunchListLunchRecord
-                                                    .lunchCategory!,
-                                                style:
-                                                    FlutterFlowTheme.of(context)
+                                  );
+                                },
+                                child: Card(
+                                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryBackground,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(16),
+                                  ),
+                                  child: Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        12, 12, 12, 12),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              columnLunchRecord.lunchCategory!,
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyText1
+                                                      .override(
+                                                        fontFamily: 'SFPro',
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primaryColor,
+                                                        fontSize: 14,
+                                                        useGoogleFonts: false,
+                                                      ),
+                                            ),
+                                            Text(
+                                              columnLunchRecord.lunchName!,
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .subtitle1,
+                                            ),
+                                          ],
+                                        ),
+                                        Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.end,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.end,
+                                          children: [
+                                            if (columnLunchRecord
+                                                    .lunchDiscount! >
+                                                1)
+                                              Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                children: [
+                                                  Text(
+                                                    columnLunchRecord
+                                                        .lunchDiscount!
+                                                        .toString(),
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
                                                         .bodyText1
                                                         .override(
                                                           fontFamily: 'SFPro',
                                                           color: FlutterFlowTheme
                                                                   .of(context)
                                                               .primaryColor,
-                                                          fontSize: 14,
                                                           useGoogleFonts: false,
                                                         ),
+                                                  ),
+                                                  Text(
+                                                    '% Korting',
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyText1
+                                                        .override(
+                                                          fontFamily: 'SFPro',
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primaryColor,
+                                                          useGoogleFonts: false,
+                                                        ),
+                                                  ),
+                                                ],
                                               ),
-                                              Text(
-                                                lunchListLunchRecord.lunchName!,
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .subtitle1,
-                                              ),
-                                            ],
-                                          ),
-                                          Column(
-                                            mainAxisSize: MainAxisSize.max,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.end,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.end,
-                                            children: [
-                                              if (lunchListLunchRecord
-                                                      .lunchDiscount! >
-                                                  1)
-                                                Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  children: [
-                                                    Text(
-                                                      lunchListLunchRecord
-                                                          .lunchDiscount!
-                                                          .toString(),
-                                                      style:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyText1
-                                                              .override(
-                                                                fontFamily:
-                                                                    'SFPro',
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primaryColor,
-                                                                useGoogleFonts:
-                                                                    false,
-                                                              ),
-                                                    ),
-                                                    Text(
-                                                      '% Korting',
-                                                      style:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyText1
-                                                              .override(
-                                                                fontFamily:
-                                                                    'SFPro',
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primaryColor,
-                                                                useGoogleFonts:
-                                                                    false,
-                                                              ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              Text(
-                                                lunchListLunchRecord
-                                                    .lunchPhone!,
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyText1,
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
+                                            Text(
+                                              columnLunchRecord.lunchPhone!,
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyText1,
+                                            ),
+                                          ],
+                                        ),
+                                      ],
                                     ),
                                   ),
-                                );
-                              },
-                            );
-                          },
-                        ),
+                                ),
+                              );
+                            }),
+                          );
+                        },
                       ),
                     ],
                   ),

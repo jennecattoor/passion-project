@@ -51,7 +51,7 @@ class _PostWidgetState extends State<PostWidget> {
           children: [
             Container(
               width: double.infinity,
-              height: 150,
+              height: 170,
               decoration: BoxDecoration(
                 color: FlutterFlowTheme.of(context).primaryColor,
                 borderRadius: BorderRadius.only(
@@ -62,9 +62,10 @@ class _PostWidgetState extends State<PostWidget> {
                 ),
               ),
               child: Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(12, 48, 24, 40),
+                padding: EdgeInsetsDirectional.fromSTEB(12, 48, 12, 50),
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
@@ -77,7 +78,7 @@ class _PostWidgetState extends State<PostWidget> {
             ),
             if (!valueOrDefault<bool>(currentUserDocument?.userHasPost, false))
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(12, 110, 12, 12),
+                padding: EdgeInsetsDirectional.fromSTEB(12, 120, 12, 12),
                 child: AuthUserStreamWidget(
                   builder: (context) => Container(
                     width: double.infinity,
@@ -93,7 +94,7 @@ class _PostWidgetState extends State<PostWidget> {
                       borderRadius: BorderRadius.circular(24),
                     ),
                     child: Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(12, 12, 12, 12),
+                      padding: EdgeInsetsDirectional.fromSTEB(12, 24, 12, 24),
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -117,7 +118,7 @@ class _PostWidgetState extends State<PostWidget> {
               ),
             if (valueOrDefault<bool>(currentUserDocument?.userHasPost, false))
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(12, 110, 12, 12),
+                padding: EdgeInsetsDirectional.fromSTEB(12, 120, 12, 12),
                 child: AuthUserStreamWidget(
                   builder: (context) => StreamBuilder<PostsRecord>(
                     stream: PostsRecord.getDocument(
@@ -172,6 +173,11 @@ class _PostWidgetState extends State<PostWidget> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
+                                      Text(
+                                        noPlanningPostsRecord.postName!,
+                                        style:
+                                            FlutterFlowTheme.of(context).title2,
+                                      ),
                                       StreamBuilder<List<UsersRecord>>(
                                         stream: queryUsersRecord(
                                           queryBuilder: (usersRecord) =>
@@ -285,15 +291,7 @@ class _PostWidgetState extends State<PostWidget> {
                                               ? null
                                               : () async {
                                                   context.pushNamed(
-                                                    'LeaveArrangementForm',
-                                                    queryParams: {
-                                                      'post': serializeParam(
-                                                        noPlanningPostsRecord
-                                                            .postName,
-                                                        ParamType.String,
-                                                      ),
-                                                    }.withoutNulls,
-                                                  );
+                                                      'LeaveArrangementForm');
                                                 },
                                           text: 'Verlof voorkeur kiezen',
                                           options: FFButtonOptions(
@@ -326,16 +324,8 @@ class _PostWidgetState extends State<PostWidget> {
                                             0, 6, 0, 6),
                                         child: FFButtonWidget(
                                           onPressed: () async {
-                                            context.pushNamed(
-                                              'LeavePreferences',
-                                              queryParams: {
-                                                'post': serializeParam(
-                                                  noPlanningPostsRecord
-                                                      .postName,
-                                                  ParamType.String,
-                                                ),
-                                              }.withoutNulls,
-                                            );
+                                            context
+                                                .pushNamed('LeavePreferences');
                                           },
                                           text: 'Verlof voorkeuren bekijken',
                                           options: FFButtonOptions(
@@ -477,7 +467,7 @@ class _PostWidgetState extends State<PostWidget> {
               ),
             if (valueOrDefault<bool>(currentUserDocument?.userHasPost, false))
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(12, 110, 12, 12),
+                padding: EdgeInsetsDirectional.fromSTEB(12, 120, 12, 12),
                 child: AuthUserStreamWidget(
                   builder: (context) => StreamBuilder<PostsRecord>(
                     stream: PostsRecord.getDocument(
@@ -529,12 +519,17 @@ class _PostWidgetState extends State<PostWidget> {
                                   ),
                                   child: Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
-                                        1, 12, 0, 12),
+                                        0, 12, 0, 12),
                                     child: Column(
                                       mainAxisSize: MainAxisSize.max,
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
+                                        Text(
+                                          planningTruePostsRecord.postName!,
+                                          style: FlutterFlowTheme.of(context)
+                                              .title2,
+                                        ),
                                         FlutterFlowCalendar(
                                           color: FlutterFlowTheme.of(context)
                                               .primaryColor,
@@ -565,104 +560,98 @@ class _PostWidgetState extends State<PostWidget> {
                                             color: FlutterFlowTheme.of(context)
                                                 .secondaryBackground,
                                           ),
-                                          child: Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    12, 0, 12, 0),
-                                            child: Column(
-                                              mainAxisSize: MainAxisSize.max,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  valueOrDefault<String>(
-                                                    dateTimeFormat(
-                                                      'MMMMEEEEd',
-                                                      FFAppState().selectedDate,
-                                                      locale:
-                                                          FFLocalizations.of(
-                                                                  context)
-                                                              .languageCode,
-                                                    ),
-                                                    'Date',
-                                                  ),
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .title2,
-                                                ),
-                                                Text(
-                                                  planningTruePostsRecord
-                                                      .postName!,
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .title3,
-                                                ),
-                                                Container(
-                                                  decoration: BoxDecoration(
-                                                    color: FlutterFlowTheme.of(
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                valueOrDefault<String>(
+                                                  dateTimeFormat(
+                                                    'MMMMEEEEd',
+                                                    FFAppState().selectedDate,
+                                                    locale: FFLocalizations.of(
                                                             context)
-                                                        .secondaryBackground,
+                                                        .languageCode,
                                                   ),
-                                                  child: StreamBuilder<
-                                                      List<UsersRecord>>(
-                                                    stream: queryUsersRecord(
-                                                      queryBuilder: (usersRecord) => usersRecord
-                                                          .where(
-                                                              'lifeguard_post',
-                                                              isEqualTo:
-                                                                  planningTruePostsRecord
-                                                                      .reference)
-                                                          .orderBy(
-                                                              'post_number'),
-                                                      limit: 4,
-                                                    ),
-                                                    builder:
-                                                        (context, snapshot) {
-                                                      // Customize what your widget looks like when it's loading.
-                                                      if (!snapshot.hasData) {
-                                                        return Center(
-                                                          child: SizedBox(
-                                                            width: 50,
-                                                            height: 50,
-                                                            child: SpinKitRing(
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .primaryColor,
-                                                              size: 50,
-                                                            ),
-                                                          ),
-                                                        );
-                                                      }
-                                                      List<UsersRecord>
-                                                          columnUsersRecordList =
-                                                          snapshot.data!;
-                                                      return Column(
-                                                        mainAxisSize:
-                                                            MainAxisSize.max,
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
-                                                        children: List.generate(
-                                                            columnUsersRecordList
-                                                                .length,
-                                                            (columnIndex) {
-                                                          final columnUsersRecord =
-                                                              columnUsersRecordList[
-                                                                  columnIndex];
-                                                          return Text(
-                                                            columnUsersRecord
-                                                                .displayName!,
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodyText1,
-                                                          );
-                                                        }),
-                                                      );
-                                                    },
-                                                  ),
+                                                  'Date',
                                                 ),
-                                              ],
-                                            ),
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .title2,
+                                              ),
+                                              Text(
+                                                planningTruePostsRecord
+                                                    .postName!,
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .title3,
+                                              ),
+                                              Container(
+                                                decoration: BoxDecoration(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .secondaryBackground,
+                                                ),
+                                                child: StreamBuilder<
+                                                    List<UsersRecord>>(
+                                                  stream: queryUsersRecord(
+                                                    queryBuilder: (usersRecord) =>
+                                                        usersRecord
+                                                            .where(
+                                                                'lifeguard_post',
+                                                                isEqualTo:
+                                                                    planningTruePostsRecord
+                                                                        .reference)
+                                                            .orderBy(
+                                                                'post_number'),
+                                                    limit: 4,
+                                                  ),
+                                                  builder: (context, snapshot) {
+                                                    // Customize what your widget looks like when it's loading.
+                                                    if (!snapshot.hasData) {
+                                                      return Center(
+                                                        child: SizedBox(
+                                                          width: 50,
+                                                          height: 50,
+                                                          child: SpinKitRing(
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .primaryColor,
+                                                            size: 50,
+                                                          ),
+                                                        ),
+                                                      );
+                                                    }
+                                                    List<UsersRecord>
+                                                        columnUsersRecordList =
+                                                        snapshot.data!;
+                                                    return Column(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: List.generate(
+                                                          columnUsersRecordList
+                                                              .length,
+                                                          (columnIndex) {
+                                                        final columnUsersRecord =
+                                                            columnUsersRecordList[
+                                                                columnIndex];
+                                                        return Text(
+                                                          columnUsersRecord
+                                                              .displayName!,
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodyText1,
+                                                        );
+                                                      }),
+                                                    );
+                                                  },
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                         ),
                                       ],

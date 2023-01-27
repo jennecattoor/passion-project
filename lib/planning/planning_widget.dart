@@ -50,7 +50,7 @@ class _PlanningWidgetState extends State<PlanningWidget> {
           children: [
             Container(
               width: double.infinity,
-              height: 150,
+              height: 170,
               decoration: BoxDecoration(
                 color: FlutterFlowTheme.of(context).primaryColor,
                 borderRadius: BorderRadius.only(
@@ -60,16 +60,23 @@ class _PlanningWidgetState extends State<PlanningWidget> {
                   topRight: Radius.circular(0),
                 ),
               ),
-              child: Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(12, 48, 12, 0),
-                child: Text(
-                  'Planning',
-                  style: FlutterFlowTheme.of(context).title1,
-                ),
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(12, 48, 12, 50),
+                    child: Text(
+                      'Planning',
+                      style: FlutterFlowTheme.of(context).title1,
+                    ),
+                  ),
+                ],
               ),
             ),
             Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(12, 110, 12, 12),
+              padding: EdgeInsetsDirectional.fromSTEB(12, 120, 12, 12),
               child: StreamBuilder<List<WorkingArrangementRecord>>(
                 stream: queryWorkingArrangementRecord(
                   queryBuilder: (workingArrangementRecord) =>
@@ -113,7 +120,7 @@ class _PlanningWidgetState extends State<PlanningWidget> {
                         FlutterFlowCalendar(
                           color: FlutterFlowTheme.of(context).primaryColor,
                           weekFormat: false,
-                          weekStartsMonday: false,
+                          weekStartsMonday: true,
                           onChange: (DateTimeRange? newSelectedDate) async {
                             calendarSelectedDay = newSelectedDate;
                             FFAppState().update(() {

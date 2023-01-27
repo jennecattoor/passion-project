@@ -51,7 +51,7 @@ class _EventDetailsWidgetState extends State<EventDetailsWidget> {
           children: [
             Container(
               width: double.infinity,
-              height: 150,
+              height: 170,
               decoration: BoxDecoration(
                 color: FlutterFlowTheme.of(context).primaryColor,
                 borderRadius: BorderRadius.only(
@@ -62,7 +62,7 @@ class _EventDetailsWidgetState extends State<EventDetailsWidget> {
                 ),
               ),
               child: Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(16, 24, 16, 40),
+                padding: EdgeInsetsDirectional.fromSTEB(12, 48, 12, 50),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
                   children: [
@@ -89,7 +89,7 @@ class _EventDetailsWidgetState extends State<EventDetailsWidget> {
               ),
             ),
             Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(12, 110, 12, 12),
+              padding: EdgeInsetsDirectional.fromSTEB(12, 120, 12, 12),
               child: StreamBuilder<EventsRecord>(
                 stream: EventsRecord.getDocument(widget.events!),
                 builder: (context, snapshot) {

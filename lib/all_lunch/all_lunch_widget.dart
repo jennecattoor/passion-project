@@ -46,7 +46,7 @@ class _AllLunchWidgetState extends State<AllLunchWidget> {
           children: [
             Container(
               width: double.infinity,
-              height: 150,
+              height: 170,
               decoration: BoxDecoration(
                 color: FlutterFlowTheme.of(context).primaryColor,
                 borderRadius: BorderRadius.only(
@@ -57,7 +57,7 @@ class _AllLunchWidgetState extends State<AllLunchWidget> {
                 ),
               ),
               child: Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(16, 24, 16, 40),
+                padding: EdgeInsetsDirectional.fromSTEB(12, 48, 12, 50),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
                   children: [
@@ -84,7 +84,7 @@ class _AllLunchWidgetState extends State<AllLunchWidget> {
               ),
             ),
             Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(12, 110, 12, 12),
+              padding: EdgeInsetsDirectional.fromSTEB(12, 120, 12, 12),
               child: Container(
                 width: double.infinity,
                 height: double.infinity,
@@ -99,213 +99,156 @@ class _AllLunchWidgetState extends State<AllLunchWidget> {
                   ],
                   borderRadius: BorderRadius.circular(24),
                 ),
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(12, 24, 12, 24),
-                      child: Container(
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          color:
-                              FlutterFlowTheme.of(context).secondaryBackground,
-                        ),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.max,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              decoration: BoxDecoration(),
-                              child: StreamBuilder<List<LunchRecord>>(
-                                stream: queryLunchRecord(
-                                  limit: 4,
-                                ),
-                                builder: (context, snapshot) {
-                                  // Customize what your widget looks like when it's loading.
-                                  if (!snapshot.hasData) {
-                                    return Center(
-                                      child: SizedBox(
-                                        width: 50,
-                                        height: 50,
-                                        child: SpinKitRing(
-                                          color: FlutterFlowTheme.of(context)
-                                              .primaryColor,
-                                          size: 50,
-                                        ),
+                child: Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(12, 24, 12, 24),
+                  child: StreamBuilder<List<LunchRecord>>(
+                    stream: queryLunchRecord(),
+                    builder: (context, snapshot) {
+                      // Customize what your widget looks like when it's loading.
+                      if (!snapshot.hasData) {
+                        return Center(
+                          child: SizedBox(
+                            width: 50,
+                            height: 50,
+                            child: SpinKitRing(
+                              color: FlutterFlowTheme.of(context).primaryColor,
+                              size: 50,
+                            ),
+                          ),
+                        );
+                      }
+                      List<LunchRecord> columnLunchRecordList = snapshot.data!;
+                      return Column(
+                        mainAxisSize: MainAxisSize.max,
+                        children: List.generate(columnLunchRecordList.length,
+                            (columnIndex) {
+                          final columnLunchRecord =
+                              columnLunchRecordList[columnIndex];
+                          return Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(0, 6, 0, 6),
+                            child: InkWell(
+                              onTap: () async {
+                                await Clipboard.setData(ClipboardData(
+                                    text: columnLunchRecord.lunchPhone!));
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(
+                                      'Telefoonnummer gekopieerd',
+                                      style: TextStyle(
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryText,
                                       ),
-                                    );
-                                  }
-                                  List<LunchRecord> lunchListLunchRecordList =
-                                      snapshot.data!;
-                                  return ListView.builder(
-                                    padding: EdgeInsets.zero,
-                                    shrinkWrap: true,
-                                    scrollDirection: Axis.vertical,
-                                    itemCount: lunchListLunchRecordList.length,
-                                    itemBuilder: (context, lunchListIndex) {
-                                      final lunchListLunchRecord =
-                                          lunchListLunchRecordList[
-                                              lunchListIndex];
-                                      return Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            0, 6, 0, 6),
-                                        child: InkWell(
-                                          onTap: () async {
-                                            await Clipboard.setData(
-                                                ClipboardData(
-                                                    text: lunchListLunchRecord
-                                                        .lunchAddress!));
-                                            ScaffoldMessenger.of(context)
-                                                .showSnackBar(
-                                              SnackBar(
-                                                content: Text(
-                                                  'Adres gekopieerd',
-                                                  style: TextStyle(
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .primaryText,
-                                                  ),
+                                    ),
+                                    duration: Duration(milliseconds: 4000),
+                                    backgroundColor:
+                                        FlutterFlowTheme.of(context)
+                                            .secondaryColor,
+                                  ),
+                                );
+                              },
+                              child: Card(
+                                clipBehavior: Clip.antiAliasWithSaveLayer,
+                                color: FlutterFlowTheme.of(context)
+                                    .secondaryBackground,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(16),
+                                ),
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      12, 12, 12, 12),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Column(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            columnLunchRecord.lunchCategory!,
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyText1
+                                                .override(
+                                                  fontFamily: 'SFPro',
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primaryColor,
+                                                  fontSize: 14,
+                                                  useGoogleFonts: false,
                                                 ),
-                                                duration: Duration(
-                                                    milliseconds: 4000),
-                                                backgroundColor:
-                                                    FlutterFlowTheme.of(context)
-                                                        .secondaryColor,
-                                              ),
-                                            );
-                                          },
-                                          child: Card(
-                                            clipBehavior:
-                                                Clip.antiAliasWithSaveLayer,
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondaryBackground,
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(16),
-                                            ),
-                                            child: Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(12, 12, 12, 12),
-                                              child: Row(
-                                                mainAxisSize: MainAxisSize.max,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  Column(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      Text(
-                                                        lunchListLunchRecord
-                                                            .lunchCategory!,
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyText1
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'SFPro',
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .primaryColor,
-                                                                  fontSize: 14,
-                                                                  useGoogleFonts:
-                                                                      false,
-                                                                ),
-                                                      ),
-                                                      Text(
-                                                        lunchListLunchRecord
-                                                            .lunchName!,
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .subtitle1,
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  Column(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment.end,
-                                                    children: [
-                                                      if (lunchListLunchRecord
-                                                              .lunchDiscount! >
-                                                          1)
-                                                        Row(
-                                                          mainAxisSize:
-                                                              MainAxisSize.max,
-                                                          children: [
-                                                            Text(
-                                                              lunchListLunchRecord
-                                                                  .lunchDiscount!
-                                                                  .toString(),
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyText1
-                                                                  .override(
-                                                                    fontFamily:
-                                                                        'SFPro',
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .primaryColor,
-                                                                    useGoogleFonts:
-                                                                        false,
-                                                                  ),
-                                                            ),
-                                                            Text(
-                                                              '% Korting',
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyText1
-                                                                  .override(
-                                                                    fontFamily:
-                                                                        'SFPro',
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .primaryColor,
-                                                                    useGoogleFonts:
-                                                                        false,
-                                                                  ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      Text(
-                                                        lunchListLunchRecord
-                                                            .lunchPhone!,
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyText1,
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
                                           ),
-                                        ),
-                                      );
-                                    },
-                                  );
-                                },
+                                          Text(
+                                            columnLunchRecord.lunchName!,
+                                            style: FlutterFlowTheme.of(context)
+                                                .subtitle1,
+                                          ),
+                                        ],
+                                      ),
+                                      Column(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.end,
+                                        children: [
+                                          if (columnLunchRecord.lunchDiscount! >
+                                              1)
+                                            Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              children: [
+                                                Text(
+                                                  columnLunchRecord
+                                                      .lunchDiscount!
+                                                      .toString(),
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyText1
+                                                      .override(
+                                                        fontFamily: 'SFPro',
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primaryColor,
+                                                        useGoogleFonts: false,
+                                                      ),
+                                                ),
+                                                Text(
+                                                  '% Korting',
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyText1
+                                                      .override(
+                                                        fontFamily: 'SFPro',
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primaryColor,
+                                                        useGoogleFonts: false,
+                                                      ),
+                                                ),
+                                              ],
+                                            ),
+                                          Text(
+                                            columnLunchRecord.lunchPhone!,
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyText1,
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
                               ),
                             ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
+                          );
+                        }),
+                      );
+                    },
+                  ),
                 ),
               ),
             ),
