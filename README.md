@@ -22,7 +22,7 @@ You can read more about this project on the blog.
 - Tuesday 24/01: Setting up pages and forms of the app
 - Wednesday 25/01: Setting up events, lunch and post page
 - Thursday 26/01: Adding work schedule to app + Other features
-- Friday 27/01: Adjusting authentication + finishing up and adding to blog
+- Friday 27/01: Adjusting authentication + Running app on phone + finishing up and adding to blog
 
 ### Week 4
 - Monday 30/01: Finishing Blog + project + Making demos for jury
