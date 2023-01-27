@@ -156,7 +156,9 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               name: 'LeaveArrangementForm',
               path: 'leaveArrangementForm',
               requireAuth: true,
-              builder: (context, params) => LeaveArrangementFormWidget(),
+              builder: (context, params) => LeaveArrangementFormWidget(
+                post: params.getParam('post', ParamType.String),
+              ),
             ),
             FFRoute(
               name: 'AllLunch',

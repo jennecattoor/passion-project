@@ -153,14 +153,19 @@ class _PlanningWidgetState extends State<PlanningWidget> {
                                   ),
                                   style: FlutterFlowTheme.of(context).title2,
                                 ),
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0, 12, 0, 0),
-                                  child: Text(
-                                    'Alle werkdagen',
-                                    style: FlutterFlowTheme.of(context).title2,
+                                if (valueOrDefault<bool>(
+                                    currentUserDocument?.userHasPost, false))
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0, 12, 0, 0),
+                                    child: AuthUserStreamWidget(
+                                      builder: (context) => Text(
+                                        'Alle werkdagen',
+                                        style:
+                                            FlutterFlowTheme.of(context).title2,
+                                      ),
+                                    ),
                                   ),
-                                ),
                                 StreamBuilder<List<WorkingArrangementRecord>>(
                                   stream: queryWorkingArrangementRecord(
                                     queryBuilder: (workingArrangementRecord) =>

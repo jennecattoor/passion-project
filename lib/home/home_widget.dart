@@ -94,173 +94,174 @@ class _HomeWidgetState extends State<HomeWidget> {
                   ),
                   Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(12, 110, 12, 0),
-                    child: AuthUserStreamWidget(
-                      builder: (context) => StreamBuilder<PostsRecord>(
-                        stream: PostsRecord.getDocument(
-                            currentUserDocument!.lifeguardPost!),
-                        builder: (context, snapshot) {
-                          // Customize what your widget looks like when it's loading.
-                          if (!snapshot.hasData) {
-                            return Center(
-                              child: SizedBox(
-                                width: 50,
-                                height: 50,
-                                child: SpinKitRing(
-                                  color:
-                                      FlutterFlowTheme.of(context).primaryColor,
-                                  size: 50,
-                                ),
-                              ),
-                            );
-                          }
-                          final schedulePostsRecord = snapshot.data!;
-                          return Container(
-                            decoration: BoxDecoration(
-                              color: FlutterFlowTheme.of(context)
-                                  .primaryBackground,
-                              boxShadow: [
-                                BoxShadow(
-                                  blurRadius: 4,
-                                  color: Color(0x33000000),
-                                  offset: Offset(0, 0),
-                                )
-                              ],
-                              borderRadius: BorderRadius.circular(16),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: FlutterFlowTheme.of(context).primaryBackground,
+                        boxShadow: [
+                          BoxShadow(
+                            blurRadius: 4,
+                            color: Color(0x33000000),
+                            offset: Offset(0, 0),
+                          )
+                        ],
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      child: Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(1, 12, 0, 12),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.max,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            FlutterFlowCalendar(
+                              color: FlutterFlowTheme.of(context).primaryColor,
+                              weekFormat: true,
+                              weekStartsMonday: true,
+                              onChange: (DateTimeRange? newSelectedDate) async {
+                                calendarSelectedDay = newSelectedDate;
+                                setState(() {
+                                  FFAppState().selectedDate =
+                                      calendarSelectedDay?.start;
+                                });
+                                setState(() {});
+                              },
+                              titleStyle: FlutterFlowTheme.of(context).title3,
+                              dayOfWeekStyle: TextStyle(),
+                              dateStyle: TextStyle(),
+                              selectedDateStyle: TextStyle(),
+                              inactiveDateStyle: TextStyle(),
+                              locale: FFLocalizations.of(context).languageCode,
                             ),
-                            child: Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(1, 12, 0, 12),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.max,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  FlutterFlowCalendar(
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryColor,
-                                    weekFormat: true,
-                                    weekStartsMonday: true,
-                                    onChange:
-                                        (DateTimeRange? newSelectedDate) async {
-                                      calendarSelectedDay = newSelectedDate;
-                                      setState(() {
-                                        FFAppState().selectedDate =
-                                            calendarSelectedDay?.start;
-                                      });
-                                      setState(() {});
-                                    },
-                                    titleStyle:
-                                        FlutterFlowTheme.of(context).title3,
-                                    dayOfWeekStyle: TextStyle(),
-                                    dateStyle: TextStyle(),
-                                    selectedDateStyle: TextStyle(),
-                                    inactiveDateStyle: TextStyle(),
-                                    locale: FFLocalizations.of(context)
-                                        .languageCode,
-                                  ),
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryBackground,
-                                    ),
-                                    child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          12, 0, 12, 0),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            valueOrDefault<String>(
-                                              dateTimeFormat(
-                                                'MMMMEEEEd',
-                                                FFAppState().selectedDate,
-                                                locale:
-                                                    FFLocalizations.of(context)
-                                                        .languageCode,
+                            if (valueOrDefault<bool>(
+                                currentUserDocument?.userHasPost, false))
+                              AuthUserStreamWidget(
+                                builder: (context) =>
+                                    StreamBuilder<PostsRecord>(
+                                  stream: PostsRecord.getDocument(
+                                      currentUserDocument!.lifeguardPost!),
+                                  builder: (context, snapshot) {
+                                    // Customize what your widget looks like when it's loading.
+                                    if (!snapshot.hasData) {
+                                      return Center(
+                                        child: SizedBox(
+                                          width: 50,
+                                          height: 50,
+                                          child: SpinKitRing(
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryColor,
+                                            size: 50,
+                                          ),
+                                        ),
+                                      );
+                                    }
+                                    final containerPostsRecord = snapshot.data!;
+                                    return Container(
+                                      decoration: BoxDecoration(
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryBackground,
+                                      ),
+                                      child: Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            12, 0, 12, 0),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              valueOrDefault<String>(
+                                                dateTimeFormat(
+                                                  'MMMMEEEEd',
+                                                  FFAppState().selectedDate,
+                                                  locale: FFLocalizations.of(
+                                                          context)
+                                                      .languageCode,
+                                                ),
+                                                'Date',
                                               ),
-                                              'Date',
-                                            ),
-                                            style: FlutterFlowTheme.of(context)
-                                                .title2,
-                                          ),
-                                          Text(
-                                            schedulePostsRecord.postName!,
-                                            style: FlutterFlowTheme.of(context)
-                                                .title3,
-                                          ),
-                                          Container(
-                                            decoration: BoxDecoration(
-                                              color:
+                                              style:
                                                   FlutterFlowTheme.of(context)
-                                                      .secondaryBackground,
+                                                      .title2,
                                             ),
-                                            child: StreamBuilder<
-                                                List<UsersRecord>>(
-                                              stream: queryUsersRecord(
-                                                queryBuilder: (usersRecord) =>
-                                                    usersRecord
-                                                        .where('lifeguard_post',
-                                                            isEqualTo:
-                                                                schedulePostsRecord
-                                                                    .reference)
-                                                        .orderBy('post_number'),
-                                                limit: 4,
+                                            Text(
+                                              containerPostsRecord.postName!,
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .title3,
+                                            ),
+                                            Container(
+                                              decoration: BoxDecoration(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .secondaryBackground,
                                               ),
-                                              builder: (context, snapshot) {
-                                                // Customize what your widget looks like when it's loading.
-                                                if (!snapshot.hasData) {
-                                                  return Center(
-                                                    child: SizedBox(
-                                                      width: 50,
-                                                      height: 50,
-                                                      child: SpinKitRing(
-                                                        color:
+                                              child: StreamBuilder<
+                                                  List<UsersRecord>>(
+                                                stream: queryUsersRecord(
+                                                  queryBuilder: (usersRecord) =>
+                                                      usersRecord
+                                                          .where(
+                                                              'lifeguard_post',
+                                                              isEqualTo:
+                                                                  containerPostsRecord
+                                                                      .reference)
+                                                          .orderBy(
+                                                              'post_number'),
+                                                  limit: 4,
+                                                ),
+                                                builder: (context, snapshot) {
+                                                  // Customize what your widget looks like when it's loading.
+                                                  if (!snapshot.hasData) {
+                                                    return Center(
+                                                      child: SizedBox(
+                                                        width: 50,
+                                                        height: 50,
+                                                        child: SpinKitRing(
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primaryColor,
+                                                          size: 50,
+                                                        ),
+                                                      ),
+                                                    );
+                                                  }
+                                                  List<UsersRecord>
+                                                      columnUsersRecordList =
+                                                      snapshot.data!;
+                                                  return Column(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: List.generate(
+                                                        columnUsersRecordList
+                                                            .length,
+                                                        (columnIndex) {
+                                                      final columnUsersRecord =
+                                                          columnUsersRecordList[
+                                                              columnIndex];
+                                                      return Text(
+                                                        columnUsersRecord
+                                                            .displayName!,
+                                                        style:
                                                             FlutterFlowTheme.of(
                                                                     context)
-                                                                .primaryColor,
-                                                        size: 50,
-                                                      ),
-                                                    ),
+                                                                .bodyText1,
+                                                      );
+                                                    }),
                                                   );
-                                                }
-                                                List<UsersRecord>
-                                                    columnUsersRecordList =
-                                                    snapshot.data!;
-                                                return Column(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: List.generate(
-                                                      columnUsersRecordList
-                                                          .length,
-                                                      (columnIndex) {
-                                                    final columnUsersRecord =
-                                                        columnUsersRecordList[
-                                                            columnIndex];
-                                                    return Text(
-                                                      columnUsersRecord
-                                                          .displayName!,
-                                                      style:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyText1,
-                                                    );
-                                                  }),
-                                                );
-                                              },
+                                                },
+                                              ),
                                             ),
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                  ),
-                                ],
+                                    );
+                                  },
+                                ),
                               ),
-                            ),
-                          );
-                        },
+                          ],
+                        ),
                       ),
                     ),
                   ),

@@ -36,6 +36,12 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
   @BuiltValueField(wireName: 'post_number')
   int? get postNumber;
 
+  @BuiltValueField(wireName: 'user_has_post')
+  bool? get userHasPost;
+
+  @BuiltValueField(wireName: 'user_submitted_preferences')
+  bool? get userSubmittedPreferences;
+
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
   DocumentReference get reference => ffRef!;
@@ -48,7 +54,9 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
     ..phoneNumber = ''
     ..admin = false
     ..userAccepted = false
-    ..postNumber = 0;
+    ..postNumber = 0
+    ..userHasPost = false
+    ..userSubmittedPreferences = false;
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('users');
@@ -82,6 +90,8 @@ Map<String, dynamic> createUsersRecordData({
   DocumentReference? lifeguardPost,
   bool? userAccepted,
   int? postNumber,
+  bool? userHasPost,
+  bool? userSubmittedPreferences,
 }) {
   final firestoreData = serializers.toFirestore(
     UsersRecord.serializer,
@@ -96,7 +106,9 @@ Map<String, dynamic> createUsersRecordData({
         ..admin = admin
         ..lifeguardPost = lifeguardPost
         ..userAccepted = userAccepted
-        ..postNumber = postNumber,
+        ..postNumber = postNumber
+        ..userHasPost = userHasPost
+        ..userSubmittedPreferences = userSubmittedPreferences,
     ),
   );
 

@@ -13,7 +13,12 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class LeaveArrangementFormWidget extends StatefulWidget {
-  const LeaveArrangementFormWidget({Key? key}) : super(key: key);
+  const LeaveArrangementFormWidget({
+    Key? key,
+    this.post,
+  }) : super(key: key);
+
+  final String? post;
 
   @override
   _LeaveArrangementFormWidgetState createState() =>
@@ -552,6 +557,12 @@ class _LeaveArrangementFormWidgetState
                                   await LeavePreferencesRecord.collection
                                       .doc()
                                       .set(leavePreferencesCreateData);
+
+                                  final usersUpdateData = createUsersRecordData(
+                                    userSubmittedPreferences: true,
+                                  );
+                                  await currentUserReference!
+                                      .update(usersUpdateData);
                                   context.pop();
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(

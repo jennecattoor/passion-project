@@ -36,6 +36,12 @@ class FFAppState extends ChangeNotifier {
   set selectedDatePlanning(DateTime? _value) {
     _selectedDatePlanning = _value;
   }
+
+  bool _userHasPost = false;
+  bool get userHasPost => _userHasPost;
+  set userHasPost(bool _value) {
+    _userHasPost = _value;
+  }
 }
 
 LatLng? _latLngFromString(String? val) {

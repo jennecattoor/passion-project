@@ -89,6 +89,20 @@ class _$UsersRecordSerializer implements StructuredSerializer<UsersRecord> {
         ..add('post_number')
         ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
+    value = object.userHasPost;
+    if (value != null) {
+      result
+        ..add('user_has_post')
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
+    }
+    value = object.userSubmittedPreferences;
+    if (value != null) {
+      result
+        ..add('user_submitted_preferences')
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
+    }
     value = object.ffRef;
     if (value != null) {
       result
@@ -153,6 +167,14 @@ class _$UsersRecordSerializer implements StructuredSerializer<UsersRecord> {
           result.postNumber = serializers.deserialize(value,
               specifiedType: const FullType(int)) as int?;
           break;
+        case 'user_has_post':
+          result.userHasPost = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool?;
+          break;
+        case 'user_submitted_preferences':
+          result.userSubmittedPreferences = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool?;
+          break;
         case 'Document__Reference__Field':
           result.ffRef = serializers.deserialize(value,
               specifiedType: const FullType(DocumentReference, const [
@@ -188,6 +210,10 @@ class _$UsersRecord extends UsersRecord {
   @override
   final int? postNumber;
   @override
+  final bool? userHasPost;
+  @override
+  final bool? userSubmittedPreferences;
+  @override
   final DocumentReference<Object?>? ffRef;
 
   factory _$UsersRecord([void Function(UsersRecordBuilder)? updates]) =>
@@ -204,6 +230,8 @@ class _$UsersRecord extends UsersRecord {
       this.lifeguardPost,
       this.userAccepted,
       this.postNumber,
+      this.userHasPost,
+      this.userSubmittedPreferences,
       this.ffRef})
       : super._();
 
@@ -228,6 +256,8 @@ class _$UsersRecord extends UsersRecord {
         lifeguardPost == other.lifeguardPost &&
         userAccepted == other.userAccepted &&
         postNumber == other.postNumber &&
+        userHasPost == other.userHasPost &&
+        userSubmittedPreferences == other.userSubmittedPreferences &&
         ffRef == other.ffRef;
   }
 
@@ -242,16 +272,20 @@ class _$UsersRecord extends UsersRecord {
                             $jc(
                                 $jc(
                                     $jc(
-                                        $jc($jc(0, email.hashCode),
-                                            displayName.hashCode),
-                                        photoUrl.hashCode),
-                                    uid.hashCode),
-                                createdTime.hashCode),
-                            phoneNumber.hashCode),
-                        admin.hashCode),
-                    lifeguardPost.hashCode),
-                userAccepted.hashCode),
-            postNumber.hashCode),
+                                        $jc(
+                                            $jc(
+                                                $jc($jc(0, email.hashCode),
+                                                    displayName.hashCode),
+                                                photoUrl.hashCode),
+                                            uid.hashCode),
+                                        createdTime.hashCode),
+                                    phoneNumber.hashCode),
+                                admin.hashCode),
+                            lifeguardPost.hashCode),
+                        userAccepted.hashCode),
+                    postNumber.hashCode),
+                userHasPost.hashCode),
+            userSubmittedPreferences.hashCode),
         ffRef.hashCode));
   }
 
@@ -268,6 +302,8 @@ class _$UsersRecord extends UsersRecord {
           ..add('lifeguardPost', lifeguardPost)
           ..add('userAccepted', userAccepted)
           ..add('postNumber', postNumber)
+          ..add('userHasPost', userHasPost)
+          ..add('userSubmittedPreferences', userSubmittedPreferences)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -317,6 +353,15 @@ class UsersRecordBuilder implements Builder<UsersRecord, UsersRecordBuilder> {
   int? get postNumber => _$this._postNumber;
   set postNumber(int? postNumber) => _$this._postNumber = postNumber;
 
+  bool? _userHasPost;
+  bool? get userHasPost => _$this._userHasPost;
+  set userHasPost(bool? userHasPost) => _$this._userHasPost = userHasPost;
+
+  bool? _userSubmittedPreferences;
+  bool? get userSubmittedPreferences => _$this._userSubmittedPreferences;
+  set userSubmittedPreferences(bool? userSubmittedPreferences) =>
+      _$this._userSubmittedPreferences = userSubmittedPreferences;
+
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
   set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
@@ -338,6 +383,8 @@ class UsersRecordBuilder implements Builder<UsersRecord, UsersRecordBuilder> {
       _lifeguardPost = $v.lifeguardPost;
       _userAccepted = $v.userAccepted;
       _postNumber = $v.postNumber;
+      _userHasPost = $v.userHasPost;
+      _userSubmittedPreferences = $v.userSubmittedPreferences;
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -371,6 +418,8 @@ class UsersRecordBuilder implements Builder<UsersRecord, UsersRecordBuilder> {
             lifeguardPost: lifeguardPost,
             userAccepted: userAccepted,
             postNumber: postNumber,
+            userHasPost: userHasPost,
+            userSubmittedPreferences: userSubmittedPreferences,
             ffRef: ffRef);
     replace(_$result);
     return _$result;
