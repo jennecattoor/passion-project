@@ -670,13 +670,10 @@ class _PostWidgetState extends State<PostWidget> {
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             0, 6, 0, 6),
                                         child: FFButtonWidget(
-                                          onPressed: currentUserDisplayName !=
-                                                      null &&
-                                                  currentUserDisplayName != ''
+                                          onPressed: true
                                               ? null
-                                              : () async {
-                                                  context.pushNamed(
-                                                      'ReportDefect');
+                                              : () {
+                                                  print('Button pressed ...');
                                                 },
                                           text: 'Dagverslag (na 18h)',
                                           options: FFButtonOptions(

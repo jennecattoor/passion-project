@@ -160,7 +160,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                 keyboardType: TextInputType.emailAddress,
                                 validator: (val) {
                                   if (val == null || val.isEmpty) {
-                                    return 'Field is required';
+                                    return 'Email is verplicht';
                                   }
 
                                   return null;
@@ -236,7 +236,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                 keyboardType: TextInputType.visiblePassword,
                                 validator: (val) {
                                   if (val == null || val.isEmpty) {
-                                    return 'Field is required';
+                                    return 'Wachtwoord is verplicht';
                                   }
 
                                   return null;
