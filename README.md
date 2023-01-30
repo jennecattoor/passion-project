@@ -25,7 +25,7 @@ You can read more about this project on the blog.
 - Friday 27/01: Adjusting authentication + Running app on phone + finishing up and adding to blog
 
 ### Week 4
-- Monday 30/01: Finishing Blog + project + Making demos for jury
+- Monday 30/01: Asking questions on forums + Finishing Blog + Finishing project + Making demos for jury
 - Tuesday 31/01: Making presentation for Jury
 - Wednesday 1/02: Test-presentation on campus + finetuning it
 - Tuesday 2/02: Presenting to jury
