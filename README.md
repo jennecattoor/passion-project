@@ -30,6 +30,12 @@ You can read more about this project on the blog.
 - Wednesday 1/02: Test-presentation on campus + finetuning it
 - Tuesday 2/02: Presenting to jury
 
+## The customer
+Lifeguards of Knokke-Heist
+
+## Core project statement
+Every summer, lifeguards make sure the Belgian coastline is as safe as possible. With a team of over 250 people. A clear line of communication is essential. The current situation is extremely inefficient in many ways. There is a great deal of paperwork that can be transformed into something digital. Everything is done on paper. As an example, the daily report gets filled out daily on a piece of paper. A car has to drive from post to post to collect these reports every single day. This task alone takes hours. I want to make an application where everything is in one place and way more efficient. This app should contain features like leave planning, missing child reports with an image, daily reports, material shortages, and many other features.
+
 ## User stories
 You can find all the user stories under the Projects tab
 
