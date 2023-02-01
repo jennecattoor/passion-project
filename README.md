@@ -41,3 +41,22 @@ You can find all the user stories under the Projects tab
 
 ## Coach feedback
 You can find the consult feedback under the Wiki's tab
+
+## Resources
+www.docs.flutterflow.io
+www.adalo.com
+www.glideappes.com
+www.bravostudio.app
+www.flutterflow.io
+www.pcloudy.com/blogs/types-of-mobile-apps-native-hybrid-web-and-progressive-web-apps
+www.glideapps.com/docs
+https://docs.bravostudio.app
+https://m.youtube.com/@FlutterFlow
+https://www.youtube.com/channel/UCnvkRrYqR0qw1_EAGg9QVbg
+firebase.google.com/docs
+webflow.com/blog/no-code-apps
+www.xano.com
+www.airtable.com
+api.marea.ooo
+openweathermap.org/api
+www.reddit.com/r/FlutterFlow
